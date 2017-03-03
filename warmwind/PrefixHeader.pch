@@ -1,0 +1,40 @@
+//
+//  PrefixHeader.pch
+//  warmwind
+//
+//  Created by guiping on 17/2/24.
+//  Copyright © 2017年 galaxyWind. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+#ifndef W_H_
+#define W_H_
+#define kScreenWIDTH  [UIScreen mainScreen].bounds.size.width
+#define kScreenHEIGHT [UIScreen mainScreen].bounds.size.height
+#endif
+
+
+#define GPColor(r, g, b, a) [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:a]
+#define myX(pix)                     pix * kScreenWIDTH / 1242
+#define myY(pix)                      pix * kScreenHEIGHT / 2208
+
+#define HSGetLabelRect(labelText,limitW,limitH,option,font) [labelText boundingRectWithSize:CGSizeMake(limitW, limitH) options:option attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:font]} context:nil]
+
+#import "FMDB.h"
+#import "DataBaseManager.h"
+#import "BimarDevice.h"
+#import "UILabel+GPAligment.h"
+#import "MBProgressHUD.h"
+#import "GPUtil.h"
+
+
+
+
+
+
+
+#endif /* PrefixHeader_pch */

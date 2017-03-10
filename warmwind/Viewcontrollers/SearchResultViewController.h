@@ -14,7 +14,7 @@
 
 @property (nonatomic, assign) BOOL isAddDevice;
 @property (nonatomic, assign) BOOL isModifyName;
-@property (nonatomic, assign) BOOL isModifyPassword;
+
 
 
 @end

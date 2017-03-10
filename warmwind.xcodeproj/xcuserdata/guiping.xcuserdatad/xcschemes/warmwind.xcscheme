@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "38129FDD1E5FBA3900F0106F"
+               BlueprintIdentifier = "38DA5B781E70EEA800028B75"
                BuildableName = "warmwind.app"
                BlueprintName = "warmwind"
                ReferencedContainer = "container:warmwind.xcodeproj">
@@ -32,7 +32,7 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "38129FF61E5FBA3900F0106F"
+               BlueprintIdentifier = "38DA5B911E70EEA800028B75"
                BuildableName = "warmwindTests.xctest"
                BlueprintName = "warmwindTests"
                ReferencedContainer = "container:warmwind.xcodeproj">
@@ -42,7 +42,7 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "3812A0011E5FBA3900F0106F"
+               BlueprintIdentifier = "38DA5B9C1E70EEA800028B75"
                BuildableName = "warmwindUITests.xctest"
                BlueprintName = "warmwindUITests"
                ReferencedContainer = "container:warmwind.xcodeproj">
@@ -52,7 +52,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "38129FDD1E5FBA3900F0106F"
+            BlueprintIdentifier = "38DA5B781E70EEA800028B75"
             BuildableName = "warmwind.app"
             BlueprintName = "warmwind"
             ReferencedContainer = "container:warmwind.xcodeproj">
@@ -75,7 +75,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "38129FDD1E5FBA3900F0106F"
+            BlueprintIdentifier = "38DA5B781E70EEA800028B75"
             BuildableName = "warmwind.app"
             BlueprintName = "warmwind"
             ReferencedContainer = "container:warmwind.xcodeproj">
@@ -94,7 +94,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "38129FDD1E5FBA3900F0106F"
+            BlueprintIdentifier = "38DA5B781E70EEA800028B75"
             BuildableName = "warmwind.app"
             BlueprintName = "warmwind"
             ReferencedContainer = "container:warmwind.xcodeproj">

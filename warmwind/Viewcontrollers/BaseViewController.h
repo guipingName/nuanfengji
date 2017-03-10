@@ -10,4 +10,16 @@
 
 @interface BaseViewController : UIViewController
 
+/**
+ *  设置导航项
+ *
+ *  @param imageName  图片名称
+ *  @param target  目标对象
+ *  @param selector  选择器
+ *  @param isLeft  是否是左边项
+ *
+ */
+- (void) addNavigationItemImageName:(NSString *) imageName target:(id)target action:(SEL)selector isLeft:(BOOL)isLeft;
+
+- (void) back:(UIButton *) sender;
 @end

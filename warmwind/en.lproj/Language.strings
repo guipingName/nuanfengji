@@ -1,0 +1,77 @@
+/*
+ Language.strings
+ warmwind
+ 
+ Created by guiping on 17/3/3.
+ Copyright © 2017年 galaxyWind. All rights reserved.
+ */
+
+"title" = "bimar";
+"button0" = "NickName";
+"button1" = "Password";
+"button2" = "Delete";
+"button3" = "New Device";
+"button4" = "Old Device";
+"button5" = "Cancel";
+
+"search0" = "Search Device";
+"search1" = "Wifi password";
+"search2" = "Password";
+"search3" = "Search";
+"search4" = "Add Device";
+"search5" = "Modify nickName";
+"search6" = "Modify password";
+"search7" = "Please Input DeviceName";
+"search8" = "Please Input Password";
+"search9" = "Failure";
+"search10" = "Failure";
+"search11" = "It'll take five minutes to look for AC Socket.Cancel and Start again?";
+"search12" = "Wait";
+"search13" = "OK";
+"search14" = "Not Connected Wi-Fi";
+"search15" = "Success";
+"search16" = "Modify";
+
+"password1" = "Origin";
+"password2" = "New";
+"password3" = "Confirm";
+"password4" = "Orogin Error";
+"password5" = " Passwords Not Match";
+"password6" = "Please Input Password";
+"password7" = "Modify";
+
+"add0" = "Add Device";
+"add1" = "DeviceId";
+"add3" = "Add";
+"add4" = "Error DeviceId";
+"add5" = "Please input nickName";
+
+"more0" = "More";
+"more1" = "Device Infomation";
+"more2" = "Remote Restart";
+"more3" = "Can't use";
+
+"deviceInfo0" = " System Overview";
+"deviceInfo1" = "Firmware Version";
+"deviceInfo2" = "Hardware Version";
+"deviceInfo3" = "Upgrade software Version";
+"deviceInfo4" = " Wireless Network";
+"deviceInfo5" = "SSID";
+"deviceInfo6" = " Advanced Information";
+"deviceInfo7" = "The Gateway Channel";
+"deviceInfo8" = "Phone Connected";
+
+
+"deviceState0" = "offLine";
+"deviceState1" = "working";
+"deviceState2" = "OFF";
+
+"leftvc0" = "About Us";
+"leftvc1" = "Settings";
+
+"about0" = "About";
+"about1" = "Upholding the concept of technology change life,bimar series manage to make a perfect combination of small practical product and big data service, which provides a series of intelligent and green hardware with affordable price.";
+
+"language0" = "Language";
+"language1" = "Change";
+

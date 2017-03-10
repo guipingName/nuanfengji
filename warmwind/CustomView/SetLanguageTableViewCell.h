@@ -10,6 +10,6 @@
 
 @interface SetLanguageTableViewCell : UITableViewCell
 
-@property (nonatomic, copy) NSString *language;
+@property (nonatomic, copy) NSString *imageName;
 
 @end

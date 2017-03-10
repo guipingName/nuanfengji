@@ -10,7 +10,10 @@
 
 @interface UILabel (GPAligment)
 
-/**设置字体两端对齐*/
+/**
+ *  设置字体两端对齐
+ *
+ */
 - (void) setAlignmentLeftAndRight;
 
 @end

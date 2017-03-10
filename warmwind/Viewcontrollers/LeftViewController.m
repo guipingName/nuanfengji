@@ -10,54 +10,69 @@
 #import "SettingViewController.h"
 #import "UIViewController+MMDrawerController.h"
 #import "LeftVCTableViewCell.h"
+#import "AboutUsViewController.h"
 
 @interface LeftViewController ()<UITableViewDataSource, UITableViewDelegate>
 {
+    UITableView *myTableView;
     NSArray *dataArray;
+    NSArray *imageNamesArray;
+    UIImageView *imageView;
+    UILabel *lbTitle;
 }
 
 @end
 
-static NSString *leftCell = @"LeftVCTableViewCell";
-
 @implementation LeftViewController
+
+-(void)dealloc{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.view.backgroundColor = [UIColor grayColor];
+    [GPUtil addBgImageViewWithImageName:@"左侧栏背景" SuperView:self.view];
+    dataArray = [NSArray array];
+    imageNamesArray = @[@"关于", @"设置"];
     
-    UITableView *myTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, myY(644), myX(759), myY(342))];
+    myTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, GPPointY(644), GPWidth(759), GPHeight(342))];
     [self.view addSubview:myTableView];
     myTableView.backgroundColor = [UIColor clearColor];
-    
     myTableView.dataSource = self;
     myTableView.delegate = self;
-    myTableView.rowHeight = myY(171);
-    [myTableView registerClass:[LeftVCTableViewCell class] forCellReuseIdentifier:leftCell];
+    myTableView.rowHeight = GPHeight(171);
+    [myTableView registerClass:[LeftVCTableViewCell class] forCellReuseIdentifier:LEFTCELL];
     [self createImageView];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeLanguage:) name:@"changeLanguage" object:nil];
     
-    dataArray = @[@"关于我们", @"设置"];
+    // 显示数据
+    [self changeLanguage:nil];
 }
 
+- (void) changeLanguage:(NSNotification *) sender{
+    lbTitle.text = [ChangeLanguage getContentWithKey:@"title"];
+    CGRect labelR = HSGetLabelRect(lbTitle.text, 0, 0, 1, 15);
+    lbTitle.frame = CGRectMake((GPPointX(759) - labelR.size.width) / 2, CGRectGetMaxY(imageView.frame) + GPPointY(30), labelR.size.width, labelR.size.height);
+    dataArray = @[[ChangeLanguage getContentWithKey:@"leftvc0"], [ChangeLanguage getContentWithKey:@"leftvc1"]];
+    [myTableView reloadData];
+}
 
 - (void) createImageView{
-    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"左侧边栏logo"]];
+    imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"左侧边栏logo"]];
     imageView.backgroundColor = [UIColor orangeColor];
-    imageView.frame = CGRectMake((myX(759) - myY(180))/2, myY(192), myY(180), myY(180));
-    imageView.layer.cornerRadius = myY(180) / 2;
+    imageView.frame = CGRectMake((GPPointX(759) - GPHeight(180)) / 2, GPPointY(192), GPHeight(180), GPHeight(180));
+    imageView.layer.cornerRadius = GPHeight(90);
     imageView.layer.borderColor = [UIColor whiteColor].CGColor;
     imageView.layer.borderWidth = 2;
-    imageView.clipsToBounds = YES;
+    imageView.layer.masksToBounds = YES;
     [self.view addSubview:imageView];
     
-    UILabel *label = [[UILabel alloc] init];
-    label.text = @"暖风机";
-    [self.view addSubview:label];
-    label.textColor = [UIColor whiteColor];
-    label.font = [UIFont systemFontOfSize:15];
-    CGRect labelR = HSGetLabelRect(label.text, 0, 0, 1, 15);
-    label.frame = CGRectMake((myX(759) - labelR.size.width)/2, CGRectGetMaxY(imageView.frame) + myY(30), labelR.size.width, labelR.size.height);
+    lbTitle = [[UILabel alloc] init];
+    [self.view addSubview:lbTitle];
+    lbTitle.textColor = [UIColor whiteColor];
+    lbTitle.font = [UIFont systemFontOfSize:15];
+    lbTitle.textAlignment = NSTextAlignmentCenter;
 }
 
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -65,24 +80,27 @@ static NSString *leftCell = @"LeftVCTableViewCell";
 }
 
 - (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    LeftVCTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:leftCell forIndexPath:indexPath];
-    cell.imageName = @"bimar关于";
+    LeftVCTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:LEFTCELL forIndexPath:indexPath];
+    cell.isSetting = YES;
+    cell.imageName = imageNamesArray[indexPath.row];
     cell.title = dataArray[indexPath.row];
     return cell;
 }
 
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.row == 1) {
-        //NSLog(@"跳转到设置界面");
+    if (indexPath.row == 0) {
+        AboutUsViewController *aboutUsVC = [[AboutUsViewController alloc] init];
+        [self.mm_drawerController closeDrawerAnimated:NO completion:^(BOOL finished) {
+            UINavigationController *cen = (UINavigationController*)self.mm_drawerController.centerViewController;
+            [cen pushViewController:aboutUsVC animated:YES];
+        }];
+    }
+    else if (indexPath.row == 1){
         SettingViewController *settingVC = [[SettingViewController alloc] init];
         [self.mm_drawerController closeDrawerAnimated:NO completion:^(BOOL finished) {
             UINavigationController *cen = (UINavigationController*)self.mm_drawerController.centerViewController;
             [cen pushViewController:settingVC animated:YES];
         }];
-    }
-    else{
-        [GPUtil hintView:self.view message:@"该功能无法使用"];
     }
 }
 

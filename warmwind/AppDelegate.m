@@ -2,7 +2,7 @@
 //  AppDelegate.m
 //  warmwind
 //
-//  Created by guiping on 17/2/24.
+//  Created by guiping on 17/3/9.
 //  Copyright © 2017年 galaxyWind. All rights reserved.
 //
 
@@ -21,23 +21,22 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
+    [ChangeLanguage initUserLanguage];
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+    if (![userDef objectForKey:@"language"]) {
+        [ChangeLanguage setUserlanguage:@"zh-Hans"];
+        [userDef setObject:@"zh-Hans" forKey:@"language"];
+        [userDef synchronize];
+    }
+    
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:[[ViewController alloc] init]];
-    
     LeftViewController *leftVC = [[LeftViewController alloc] init];
-    
-    
     MMDrawerController *drawerController = [[MMDrawerController alloc] initWithCenterViewController:nav leftDrawerViewController:leftVC];
-    
-    //[drawerController setShowsShadow:NO];
-    //[drawerController setRestorationIdentifier:@"MMDrawer"];
-    [drawerController setMaximumRightDrawerWidth:200.0];
     [drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeNone];
     [drawerController setCloseDrawerGestureModeMask:MMCloseDrawerGestureModeAll];
-    
-    [drawerController setMaximumLeftDrawerWidth:myX(759)];
+    [drawerController setMaximumLeftDrawerWidth:GPPointX(759)];
     
     self.window.rootViewController = drawerController;
-    
     return YES;
 }
 

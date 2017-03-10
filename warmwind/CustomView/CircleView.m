@@ -24,7 +24,7 @@
 -(instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        _lineWidth = myY(9);
+        _lineWidth = GPPointY(9);
         [self buildLayout];
         _newtimeLabel = [[UILabel alloc] initWithFrame:self.bounds];
         _newtimeLabel.textColor = [UIColor whiteColor];
@@ -44,7 +44,7 @@
     
     //创建路径
     UIBezierPath *path = [UIBezierPath bezierPathWithArcCenter:CGPointMake(centerX, centerY) radius:radius startAngle:(-0.5f * M_PI) endAngle:1.5f * M_PI clockwise:YES];
-    UIBezierPath *path1 = [UIBezierPath bezierPathWithArcCenter:CGPointMake(centerX, centerY) radius:radius - myY(3) / 2 startAngle:(-0.5f * M_PI) endAngle:1.5f * M_PI clockwise:YES];
+    UIBezierPath *path1 = [UIBezierPath bezierPathWithArcCenter:CGPointMake(centerX, centerY) radius:radius - GPPointY(3) / 2 startAngle:(-0.5f * M_PI) endAngle:1.5f * M_PI clockwise:YES];
     
     //创建进度layer
     _progressLayer = [CAShapeLayer layer];
@@ -64,7 +64,7 @@
     _backLayer.frame = self.bounds;
     _backLayer.fillColor =  [UIColor clearColor].CGColor;
     _backLayer.strokeColor = RGB(250, 74, 20).CGColor;
-    _backLayer.lineWidth = myY(12);
+    _backLayer.lineWidth = GPPointY(12);
     _backLayer.path = [path1 CGPath];
     [self.layer addSublayer:_backLayer];
 }

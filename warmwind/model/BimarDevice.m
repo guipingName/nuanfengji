@@ -24,35 +24,41 @@
 
 -(NSUInteger)decreaseTemperature{
     if (_temperatureFlag) {
-        _CelsiusTemperature = --_CelsiusTemperature;
-        if (_CelsiusTemperature < 5) {
-            _CelsiusTemperature = 5;
+        _Centigrade = --_Centigrade;
+        _Fahrenheit = _Centigrade * 1.8 + 32;
+        if (_Centigrade < 5) {
+            _Centigrade = 5;
+            _Fahrenheit = 41;
             return 5;
         }
-        return _CelsiusTemperature;
+        return _Centigrade;
     }
     else{
         _Fahrenheit = --_Fahrenheit;
+        _Centigrade = (_Fahrenheit - 32) / 1.8;
         if (_Fahrenheit < 41) {
             _Fahrenheit = 41;
+            _Centigrade = 32;
             return 41;
         }
-        
         return _Fahrenheit;
     }
 }
 
 -(NSUInteger)increaseTemperature{
     if (_temperatureFlag) {
-        _CelsiusTemperature = ++_CelsiusTemperature;
-        if (_CelsiusTemperature > 37) {
-            _CelsiusTemperature = 37;
+        _Centigrade = ++_Centigrade;
+        _Fahrenheit = _Centigrade * 1.8 + 32;
+        if (_Centigrade > 37) {
+            _Centigrade = 37;
+            _Fahrenheit = 99;
             return 37;
         }
-        return _CelsiusTemperature;
+        return _Centigrade;
     }
     else{
         _Fahrenheit = ++_Fahrenheit;
+        _Centigrade = (_Fahrenheit - 32) / 1.8;
         if (_Fahrenheit > 99) {
             _Fahrenheit = 99;
             return 99;
@@ -61,24 +67,9 @@
     }
 }
 
-
 -(BOOL)setTimeToAutoOff:(BimarAutoOffTime)time{
     return YES;
 }
 
--(BOOL)changTemperatureFlag{
-    _temperatureFlag = !_temperatureFlag;
-    return !_temperatureFlag;
-}
 
-- (void) machineDefault{
-    _workState = YES;
-    _CelsiusTemperature = 20;
-    _workMode = BimarWorkModeSmallFire;
-    _indoorCelsiusTemperature = 18;
-    _indoorFahrenheit = 48;
-    _Fahrenheit = 30;
-    _windState = NO;
-    _autoTime = BimarAutoOffTimeNone;
-}
 @end

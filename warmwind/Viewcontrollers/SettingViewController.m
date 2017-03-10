@@ -11,11 +11,11 @@
 #import "SetLanguageTableViewCell.h"
 #import "GPPickerView.h"
 
-typedef enum {
-    sounds,
-    shake,
-    language,
-}type;
+typedef NS_ENUM(NSInteger, SettingType) {
+    SettingTypeSound,       // 声音
+    SettingTypeVibrate,     // 振动
+};
+
 
 @interface SettingViewController ()<UITableViewDataSource, UITableViewDelegate>
 {
@@ -25,6 +25,7 @@ typedef enum {
 }
 
 @end
+
 
 @implementation SettingViewController
 
@@ -37,20 +38,19 @@ typedef enum {
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    
-    self.title = @"设置";
-    [GPUtil backgroundImageView:self.view];
+    self.title = [ChangeLanguage getContentWithKey:@"leftvc1"];
+    [GPUtil addBgImageViewWithImageName:@"bimar背景" SuperView:self.view];
     userDefaults = [NSUserDefaults standardUserDefaults];
-    
-    myTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWIDTH, kScreenHEIGHT - 64)];
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    myTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, kScreenWIDTH, kScreenHEIGHT - 64)];
     [self.view addSubview:myTableView];
     myTableView.backgroundColor = [UIColor clearColor];
     myTableView.delegate = self;
     myTableView.dataSource = self;
     myTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    [myTableView registerClass:[SettingTableViewCell class] forCellReuseIdentifier:@"SettingTableViewCell"];
-    [myTableView registerClass:[SetLanguageTableViewCell class] forCellReuseIdentifier:@"SetLanguageTableViewCell"];
-    myTableView.rowHeight =  myY(231);
+    [myTableView registerClass:[SettingTableViewCell class] forCellReuseIdentifier:SETTINGCELL];
+    [myTableView registerClass:[SetLanguageTableViewCell class] forCellReuseIdentifier:LANGUAGECELL];
+    myTableView.rowHeight =  GPPointY(231);
     
     dataArray = @[@"bimar声音", @"bimar震动"];
 }
@@ -64,21 +64,24 @@ typedef enum {
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     if (indexPath.row == 2) {
-        SetLanguageTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SetLanguageTableViewCell" forIndexPath:indexPath];
-        if (![userDefaults objectForKey:@"language"]) {
-            cell.language = @"简体中文";
+        SetLanguageTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:LANGUAGECELL forIndexPath:indexPath];
+        if ([[userDefaults objectForKey:@"language"] isEqualToString:@"Italian"]) {
+            cell.imageName = @"bimar意大利语";
+        }
+        else if ([[userDefaults objectForKey:@"language"] isEqualToString:@"en"]){
+            cell.imageName = @"bimar英语";
         }
         else{
-            cell.language = [userDefaults objectForKey:@"language"];
+            cell.imageName = @"bimar汉语";
         }
         return cell;
     }
     else{
-        SettingTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SettingTableViewCell" forIndexPath:indexPath];
+        SettingTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:SETTINGCELL forIndexPath:indexPath];
         cell.leftImageName = dataArray[indexPath.row];
         [cell.rightSwitch addTarget:self action:@selector(doSwitch:) forControlEvents:UIControlEventValueChanged];
         if (indexPath.row == 0) {
-            if ([userDefaults boolForKey:@"soundState"]) {
+            if ([userDefaults boolForKey:SOUND]) {
                 cell.rightSwitch.on = YES;
             }
             else{
@@ -86,7 +89,7 @@ typedef enum {
             }
         }
         else if (indexPath.row == 1) {
-            if ([userDefaults boolForKey:@"shakeState"]) {
+            if ([userDefaults boolForKey:VIBRATE]) {
                 cell.rightSwitch.on = YES;
             }
             else{
@@ -100,26 +103,24 @@ typedef enum {
 
 - (void) doSwitch:(UISwitch *) sender{
     switch (sender.tag - 245) {
-        case 0:
+        case SettingTypeSound:
         {
             if (sender.isOn) {
-                [userDefaults setBool:YES forKey:@"soundState"];
-                [GPUtil hintView:self.view message:@"请适当调节音量"];
+                [userDefaults setBool:YES forKey:SOUND];
             }
             else{
-                [userDefaults setBool:NO forKey:@"soundState"];
+                [userDefaults setBool:NO forKey:SOUND];
             }
             [userDefaults synchronize];
             break;
         }
-        case 1:
+        case SettingTypeVibrate:
         {
             if (sender.isOn) {
-                [userDefaults setBool:YES forKey:@"shakeState"];
-                [GPUtil hintView:self.view message:@"请在设置中打开震动开关"];
+                [userDefaults setBool:YES forKey:VIBRATE];
             }
             else{
-                [userDefaults setBool:NO forKey:@"shakeState"];
+                [userDefaults setBool:NO forKey:VIBRATE];
             }
             [userDefaults synchronize];
             break;
@@ -131,21 +132,32 @@ typedef enum {
 
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.row == language) {
-        GPPickerView *pickerView = [[GPPickerView alloc] initWithFrame:CGRectMake(0, kScreenHEIGHT - 64, kScreenWIDTH, myY(969))];
+    if (indexPath.row == 2) {
+        for (UIView *view in self.view.subviews) {
+            if ([view isKindOfClass:[GPPickerView class]]) {
+                return;
+            }
+        }
+        GPPickerView *pickerView = [[GPPickerView alloc] initWithFrame:CGRectMake(0, kScreenHEIGHT, kScreenWIDTH, GPPointY(969))];
         [self.view addSubview:pickerView];
         [UIView animateWithDuration:0.3 animations:^{
             CGRect rect = pickerView.frame;
-            rect.origin.y -= myY(969);
+            rect.origin.y -= GPPointY(969);
             pickerView.frame = rect;
         }];
-        pickerView.block = ^(NSString *abc) {
-            [userDefaults setObject:abc forKey:@"language"];
+        pickerView.block = ^(NSString *newLanguage) {
+            [userDefaults setObject:newLanguage forKey:@"language"];
             [userDefaults synchronize];
             [myTableView reloadData];
-            // todo:实现语言转换
+            if ([newLanguage isEqualToString:@"Italian"]) {
+                newLanguage = @"en";
+            }
+            if (![newLanguage isEqualToString:[ChangeLanguage userLanguage]]) {
+                [ChangeLanguage setUserlanguage:newLanguage];
+                self.title = [ChangeLanguage getContentWithKey:@"leftvc1"];
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"changeLanguage" object:nil];
+            }
         };
-        
     }
     else{
         return;

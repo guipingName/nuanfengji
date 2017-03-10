@@ -18,7 +18,20 @@ typedef NS_ENUM(NSInteger, BimarWorkMode) {
 typedef NS_ENUM(NSInteger, BimarAutoOffTime) {
     BimarAutoOffTimeNone,       // 关闭
     BimarAutoOffTimeOne,        // 1小时
-    BimarAutoOffTimeFifteen    // 15小时
+    BimarAutoOffTimeTwo,
+    BimarAutoOffTimeThree,
+    BimarAutoOffTimeFour,
+    BimarAutoOffTimeFive,
+    BimarAutoOffTimeSix,
+    BimarAutoOffTimeSeven,
+    BimarAutoOffTimeEight,
+    BimarAutoOffTimeNine,
+    BimarAutoOffTimeTen,
+    BimarAutoOffTimeEleven,
+    BimarAutoOffTimeTwelve,
+    BimarAutoOffTimeThirteen,
+    BimarAutoOffTimeFourteen,
+    BimarAutoOffTimeFifteen     // 15小时
 };
 
 typedef NS_ENUM(NSInteger, BimarWorkState) {
@@ -51,30 +64,36 @@ typedef NS_ENUM(NSInteger, BimarWorkState) {
 /**定时时长*/
 @property (nonatomic, assign) BimarAutoOffTime autoTime;
 
+/**定时器结束时间(1970)*/
+@property (nonatomic, assign) NSInteger endtime;
+
 /**温度单位标志(YES 摄氏温度, NO 华氏温度)*/
 @property (nonatomic, assign) BOOL temperatureFlag;
 
 /**摄氏温度值(5℃~37℃)*/
-@property (nonatomic, assign) NSUInteger CelsiusTemperature;
+@property (nonatomic, assign) NSUInteger Centigrade;
 
 /**华氏温度值(41℉~99℉)*/
 @property (nonatomic, assign) NSUInteger Fahrenheit;
 
 /**室内摄氏温度值*/
-@property (nonatomic, assign) NSInteger indoorCelsiusTemperature;
+@property (nonatomic, assign) NSInteger indoorCentigrade;
 
 /**室内华氏温度值*/
 @property (nonatomic, assign) NSInteger indoorFahrenheit;
 
 
-
 /**
  *  增加温度值
+ *
+ *  @return 当前温度值
  */
 - (NSUInteger) increaseTemperature;
 
 /**
  *  降低温度值
+ *
+ *  @return 当前温度值
  */
 - (NSUInteger) decreaseTemperature;
 
@@ -88,33 +107,29 @@ typedef NS_ENUM(NSInteger, BimarWorkState) {
 /**
  *  改变风的使用状态
  *
- *  @return (YES 成功;  NO 失败)
+ *  @param isOn 打开状态:YES打开 NO关闭
+ *
+ *  @return 操作状态:YES 成功; NO 失败
  */
-- (BOOL) changeWindState:(BOOL) on;
+- (BOOL) changeWindState:(BOOL) isOn;
 
 /**
  *  设置自动关闭
  *
- *  @return 返回设置的时长
+ *  @param time 设置的时长
+ *
+ *  @return 操作状态:YES 成功; NO 失败
  */
 - (BOOL) setTimeToAutoOff:(BimarAutoOffTime) time;
-
 
 /**
  *  打开或关闭
  *
- * @params on 状态
+ *  @param isOn 状态:YES打开 NO关闭
  *
- *  @return (YES 成功;  NO 失败)
+ *  @return 操作状态:YES 成功; NO 失败
  */
-- (BOOL) turnOnOrOffWithState:(BOOL) on;
-
-/**
- *  设置显示温度单位
- *
- *  @retuen (YES 摄氏温度;  NO 法式温度)
- */
-- (BOOL) changTemperatureFlag;
+- (BOOL) turnOnOrOffWithState:(BOOL) isOn;
 
 
 @end

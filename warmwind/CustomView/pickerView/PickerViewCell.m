@@ -37,7 +37,7 @@
     }
     label.text = title;
     CGRect labelR = HSGetLabelRect(label.text, 0, 0, 1, 20);
-    label.frame = CGRectMake(CGRectGetMaxX(image.frame) + myX(18), (self.bounds.size.height - labelR.size.height) / 2, labelR.size.width, labelR.size.height);
+    label.frame = CGRectMake(CGRectGetMaxX(image.frame) + GPPointX(18), (self.bounds.size.height - labelR.size.height) / 2, labelR.size.width, labelR.size.height);
 }
 
 - (void)setImgName:(NSString *)imgName{

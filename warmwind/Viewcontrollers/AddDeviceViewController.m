@@ -9,6 +9,10 @@
 #import "AddDeviceViewController.h"
 
 @interface AddDeviceViewController ()<UITextFieldDelegate>
+{
+    UITextField *tfDeviceId;
+    UITextField *tfPassword;
+}
 
 @end
 
@@ -18,77 +22,95 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    self.title = @"添加设备";
-    UILabel *temp = nil;
-    NSArray *names = @[@"序列号", @"昵称", @"密码"];
-    CGPoint numberLabelCenter = CGPointZero;
-    CGPoint nameLabelCenter = CGPointZero;
-    CGPoint passwordLabelCenter = CGPointZero;
-    for (int i=0; i<3; i++) {
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(myX(81), myY(129) + myY(186) * i, 46, 40)];
-        if (i == 0) {
-            numberLabelCenter = label.center;
-        }
-        else if (i == 1) {
-            nameLabelCenter = label.center;
-        }
-        else{
-            passwordLabelCenter = label.center;
-        }
-        label.text = names[i];
-        temp = label;
-        label.font = [UIFont systemFontOfSize:15];
-        [label setAlignmentLeftAndRight];
-        [self.view addSubview:label];
-    }
+    self.title = [ChangeLanguage getContentWithKey:@"add0"];
     
-    for (int i=0; i<3; i++) {
-        UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, kScreenWIDTH - myX(81) - CGRectGetMaxX(temp.frame) - 10, myY(150))];
-        textField.delegate = self;
-        if (i == 0) {
-            textField.center = CGPointMake((myX(81) + 56) + (kScreenWIDTH - (myX(81) + 56) - myX(81)) / 2, numberLabelCenter.y);
-            textField.keyboardType = UIKeyboardTypeNumberPad;
-        }
-        else if (i == 1) {
-            textField.center = CGPointMake((myX(81) + 56) + (kScreenWIDTH - (myX(81) + 56) - myX(81)) / 2, nameLabelCenter.y);
-        }
-        else{
-            textField.center = CGPointMake((myX(81) + 56) + (kScreenWIDTH - (myX(81) + 56) - myX(81)) / 2, passwordLabelCenter.y);
-        }
-        textField.tag = 370 + i;
-        textField.layer.borderColor = GPColor(204, 204, 204, 1.0).CGColor;
-        textField.layer.borderWidth= 1.0f;
-        textField.layer.cornerRadius = 5.0f;
-        [self.view addSubview:textField];
-    }
     
-    UIButton *sureButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.view addSubview:sureButton];
-    sureButton.frame = CGRectMake(kScreenWIDTH / 2 - myX(1077) / 2, CGRectGetMaxY([self.view viewWithTag:372].frame) + myY(114), myX(1077), myY(165));
-    [sureButton setTitle:@"确认" forState:UIControlStateNormal];
-    sureButton.titleLabel.font = [UIFont systemFontOfSize:20];
-    sureButton.backgroundColor = [UIColor orangeColor];
-    [sureButton addTarget:self action:@selector(sureButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    UILabel *lbTemp = nil;
+    CGRect maxRect = CGRectZero;
+    // 创建序列号标签
+    UILabel *lbDeviceId = [[UILabel alloc] init];
+    lbDeviceId.text = [ChangeLanguage getContentWithKey:@"add1"];
+    lbDeviceId.font = [UIFont systemFontOfSize:15];
+    CGRect lbDeviceIdR = HSGetLabelRect(lbDeviceId.text, 0, 0, 1, 15);
+    maxRect = lbDeviceIdR;
+    lbTemp = lbDeviceId;
+    [self.view addSubview:lbDeviceId];
+    // 创建密码标签
+    UILabel *lbPassword = [[UILabel alloc] init];
+    lbPassword.text = [ChangeLanguage getContentWithKey:@"search2"];
+    lbPassword.font = [UIFont systemFontOfSize:15];
+    CGRect lbPasswordR = HSGetLabelRect(lbPassword.text, 0, 0, 1, 15);
+    if (lbPasswordR.size.width > maxRect.size.width) {
+        maxRect = lbPasswordR;
+        lbTemp = lbPassword;
+    }
+    [self.view addSubview:lbPassword];
+    lbDeviceId.frame = CGRectMake(GPPointX(81), GPPointY(129) + 64, maxRect.size.width + 1, maxRect.size.height);
+    lbPassword.frame = CGRectMake(GPPointX(81), GPPointY(315) + 64, maxRect.size.width + 1, maxRect.size.height);
+    CGPoint SSIDLabelCenter = lbDeviceId.center;
+    CGPoint passwordLabelCenter = lbPassword.center;
+    [lbDeviceId setAlignmentLeftAndRight];
+    [lbPassword setAlignmentLeftAndRight];
+    
+    // 创建序列号输入框
+    tfDeviceId = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, kScreenWIDTH - GPPointX(81) - CGRectGetMaxX(lbTemp.frame) - GPPointX(39), GPPointY(150))];
+    tfDeviceId.center = CGPointMake((passwordLabelCenter.x * 2 - GPPointX(81)) + GPPointX(39) +(kScreenWIDTH - (passwordLabelCenter.x * 2 - GPPointX(81) + GPPointX(39)) - GPPointX(81)) / 2, SSIDLabelCenter.y);
+    tfDeviceId.layer.borderColor = GPColor(204, 204, 204, 1.0).CGColor;
+    tfDeviceId.keyboardType = UIKeyboardTypeNumberPad;
+    tfDeviceId.layer.borderWidth= 1.0f;
+    tfDeviceId.layer.cornerRadius = 5.0f;
+    [self.view addSubview:tfDeviceId];
+    tfDeviceId.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, GPPointX(39), 0)];
+    tfDeviceId.leftViewMode = UITextFieldViewModeAlways;
+    tfDeviceId.delegate = self;
+    [tfDeviceId setValue:GPColor(128, 128, 128, 1.0) forKeyPath:@"_placeholderLabel.textColor"];
+    tfDeviceId.returnKeyType = UIReturnKeyDone;
+    [tfDeviceId becomeFirstResponder];
+    // 密码输入框
+    tfPassword = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, kScreenWIDTH - GPPointX(81) - CGRectGetMaxX(lbTemp.frame) - GPPointX(39), GPPointY(150))];
+    tfPassword.center = CGPointMake((passwordLabelCenter.x * 2 - GPPointX(81)) + GPPointX(39) +(kScreenWIDTH - (passwordLabelCenter.x * 2 - GPPointX(81) + GPPointX(39)) - GPPointX(81)) / 2, passwordLabelCenter.y);
+    tfPassword.keyboardType = UIKeyboardTypeASCIICapable;
+    tfPassword.secureTextEntry = YES;
+    tfPassword.layer.borderColor = GPColor(204, 204, 204, 1.0).CGColor;
+    tfPassword.layer.borderWidth= 1.0f;
+    tfPassword.layer.cornerRadius = 5.0f;
+    [self.view addSubview:tfPassword];
+    tfPassword.leftView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, GPPointX(39), 0)];
+    tfPassword.leftViewMode = UITextFieldViewModeAlways;
+    tfPassword.delegate = self;
+    [tfPassword setValue:GPColor(128, 128, 128, 1.0) forKeyPath:@"_placeholderLabel.textColor"];
+    tfPassword.returnKeyType = UIReturnKeyDone;
+    
+    
+    // 创建添加按钮
+    UIButton *btnAdd = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.view addSubview:btnAdd];
+    btnAdd.frame = CGRectMake(kScreenWIDTH / 2 - GPPointX(1077) / 2, CGRectGetMaxY(tfPassword.frame) + GPPointY(114), GPPointX(1077), GPPointY(165));
+    [btnAdd setTitle:[ChangeLanguage getContentWithKey:@"add3"] forState:UIControlStateNormal];
+    btnAdd.titleLabel.font = [UIFont systemFontOfSize:20];
+    btnAdd.backgroundColor = GPColor(250, 126, 20, 1.0);
+    [btnAdd addTarget:self action:@selector(btnAddClicked:) forControlEvents:UIControlEventTouchUpInside];
 }
 
-- (void) sureButtonClicked:(UIButton *) sender{
-    UITextField *deviceIdTextField = (UITextField *)[self.view viewWithTag:370];
-    UITextField *nickNameTextField = (UITextField *)[self.view viewWithTag:371];
-    UITextField *passwordTextField = (UITextField *)[self.view viewWithTag:372];
-    NSInteger aa = [deviceIdTextField.text integerValue];//2147483647
-    if (aa > 0 && aa < 21474837) {
-        BOOL insertState = [[DataBaseManager sharedManager] insertDeviceWithDeviceId:[deviceIdTextField.text integerValue] deviceName:nickNameTextField.text password:passwordTextField.text];
+
+- (void) btnAddClicked:(UIButton *) sender{
+    if (tfDeviceId.text.length == 14) {
+        if (tfPassword.text.length == 0) {
+            [GPUtil hintView:self.view message:[ChangeLanguage getContentWithKey:@"search8"]];
+            return;
+        }
+        BOOL insertState = [[DataBaseManager sharedManager] addDeviceWithDeviceId:(long long)[[tfDeviceId.text stringByReplacingOccurrencesOfString:@" "withString:@""] integerValue] deviceName:@"HC暖风机200" password:tfPassword.text];
         if (insertState) {
-            NSNotification *note = [[NSNotification alloc] initWithName:@"newDevice" object:nil userInfo:nil];
-            [[NSNotificationCenter defaultCenter] postNotification:note];
+            //NSNotification *note = [[NSNotification alloc] initWithName:@"newDevice" object:nil userInfo:nil];
+            //[[NSNotificationCenter defaultCenter] postNotification:note];
             [self.navigationController popToRootViewControllerAnimated:NO];
         }
         else{
-            [GPUtil hintView:self.view message:@"序列号输入有误"];
+            [GPUtil hintView:self.view message:[ChangeLanguage getContentWithKey:@"search9"]];
         }
     }
     else{
-        [GPUtil hintView:self.view message:@"序列号输入有误"];
+        [GPUtil hintView:self.view message:[ChangeLanguage getContentWithKey:@"add4"]];
     }
 }
 
@@ -99,12 +121,55 @@
     return YES;
 }
 
--(void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
-    for (int i=370; i<373; i++) {
-        UITextField *textField = (id) [self.view viewWithTag:i];
-        if ([textField becomeFirstResponder]) {
-            [textField resignFirstResponder];
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    if (textField == tfDeviceId) {
+//        if (range.length == 1 && string.length == 0) {
+//            return YES;
+//        }
+//        else if (tfDeviceId.text.length >= 12) {
+//            tfDeviceId.text = [textField.text substringToIndex:12];
+//            return NO;
+//        }
+        NSString *text = textField.text;
+        NSCharacterSet *characterSet = [NSCharacterSet characterSetWithCharactersInString:@"0123456789\b"];
+        string = [string stringByReplacingOccurrencesOfString:@" " withString:@""];
+        if ([string rangeOfCharacterFromSet:[characterSet invertedSet]].location != NSNotFound) {
+            return NO;
         }
+        text = [text stringByReplacingCharactersInRange:range withString:string];
+        text = [text stringByReplacingOccurrencesOfString:@" "withString:@""];
+        if ([text length] >= 13) {
+            return NO;
+        }
+        NSString *newString =@"";
+        while (text.length >0) {
+            NSString *subString = [text substringToIndex:MIN(text.length,4)];
+            newString = [newString stringByAppendingString:subString];
+            if (subString.length ==4) {
+                newString = [newString stringByAppendingString:@" "];
+            }
+            text = [text substringFromIndex:MIN(text.length,4)];
+        }
+        newString = [newString stringByTrimmingCharactersInSet:[characterSet invertedSet]];
+        [textField setText:newString];
+        return NO;
+    }
+    else if (textField == tfPassword) {
+        if (range.length == 1 && string.length == 0) {
+            return YES;
+        }
+        else if (tfPassword.text.length >= 32) {
+            tfPassword.text = [textField.text substringToIndex:32];
+            return NO;
+        }
+    }
+    return YES;
+}
+
+-(void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
+    if ([tfDeviceId becomeFirstResponder] || [tfPassword becomeFirstResponder]) {
+        [tfDeviceId resignFirstResponder];
+        [tfPassword resignFirstResponder];
     }
 }
 

@@ -40,9 +40,8 @@
     float imgH = leftImageView.image.size.height;
     float imgW = leftImageView.image.size.width;
 
-    leftImageView.frame = CGRectMake(20, (CGRectGetHeight(self.frame) - imgH)/2, imgW, imgH);
+    leftImageView.frame = CGRectMake(GPPointX(60), (CGRectGetHeight(self.frame) - imgH)/2, imgW, imgH);
 
-    
     // 右侧开关
     if (!_rightSwitch) {
         _rightSwitch = [[UISwitch alloc] init];

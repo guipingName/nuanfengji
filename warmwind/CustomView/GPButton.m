@@ -17,7 +17,7 @@
 
 
 - (CGRect) titleRectForContentRect:(CGRect)contentRect{
-    return CGRectMake(0, 31, self.bounds.size.width, 30);
+    return CGRectMake(0, 31, self.bounds.size.width, 20);
 }
 
 /*

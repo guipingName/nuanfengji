@@ -20,6 +20,7 @@
     UIPickerView *myPickerView;
     NSArray *titleArray;
     NSArray *imageNamesArray;
+    NSArray *returnStringArray;
 }
 
 - (CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component {
@@ -31,7 +32,7 @@
 }
 
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component{
-    return 2;
+    return 3;
 }
 
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView{
@@ -61,7 +62,7 @@
     if (self = [super initWithFrame:frame]) {
         self.backgroundColor = [UIColor whiteColor];
         UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, tempy(75), self.bounds.size.width, 30)];
-        titleLabel.text = @"语言";
+        titleLabel.text = [ChangeLanguage getContentWithKey:@"language0"];
         titleLabel.font = [UIFont systemFontOfSize:20];
         titleLabel.textAlignment = NSTextAlignmentCenter;
         titleLabel.textColor = GPColor(250, 126, 20, 1.0);
@@ -72,10 +73,11 @@
         myPickerView.delegate = self;
         myPickerView.dataSource = self;
         [self addSubview:myPickerView];
-        titleArray = @[@"简体中文", @"English"];
-        imageNamesArray = @[@"bimar汉语", @"bimar英语"];
+        titleArray = @[@"English", @"简体中文", @"意大利语"];
+        returnStringArray = @[@"en", @"zh-Hans", @"Italian"];
+        imageNamesArray = @[@"bimar英语", @"bimar汉语", @"bimar意大利语"];
         
-        NSArray *buttonNames = @[@"取消", @"确定"];
+        NSArray *buttonNames = @[[ChangeLanguage getContentWithKey:@"button5"], [ChangeLanguage getContentWithKey:@"language1"]];
         for (int i=0; i<2; i++) {
             UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
             button.frame = CGRectMake(self.bounds.size.width * i / 2, self.bounds.size.height - tempy(171), self.bounds.size.width / 2, tempy(171));
@@ -101,7 +103,7 @@
         {
             NSInteger row=[myPickerView selectedRowInComponent:0];
             if (self.block) {
-                self.block(titleArray[row]);
+                self.block(returnStringArray[row]);
             }
             break;
         }

@@ -22,13 +22,37 @@
     
     self.view.backgroundColor = [UIColor whiteColor];
     
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"bimar背景"]forBarMetrics:UIBarMetricsDefault];
+    //[self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"bimar背景"]forBarMetrics:UIBarMetricsDefault];
+    self.navigationController.navigationBar.barTintColor = GPColor(250, 126, 20, 1.0);
     
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"返回"] style:UIBarButtonItemStylePlain target:self action:@selector(back:)];
-    self.navigationItem.leftBarButtonItem.tintColor = [UIColor whiteColor];
+    [self addNavigationItemImageName:@"返回" target:self action:@selector(back:) isLeft:YES];
 }
 
-- (void) back:(UIBarButtonItem *) sender{
+-(void)addNavigationItemImageName:(NSString *) imageName target:(id)target action:(SEL)selector isLeft:(BOOL)isLeft{
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    if (isLeft) {
+        btn.frame = CGRectMake(-13, 0.0, 43, 43);
+    }
+    else{
+        btn.frame = CGRectMake(13, 0.0, 43, 43);
+    }
+    [btn addTarget:target action:selector forControlEvents:UIControlEventTouchDown];
+    [btn setBackgroundImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 43, 43)];
+    [view addSubview:btn];
+    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:view];
+    if (isLeft) {
+        self.navigationItem.leftBarButtonItem = item;
+        self.navigationItem.leftBarButtonItem.tintColor = [UIColor whiteColor];
+    }
+    else{
+        self.navigationItem.rightBarButtonItem = item;
+        self.navigationItem.rightBarButtonItem.tintColor = [UIColor whiteColor];
+    }
+}
+
+
+- (void) back:(UIButton *) sender{
     [self.navigationController popViewControllerAnimated:YES];
 }
 

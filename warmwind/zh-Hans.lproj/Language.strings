@@ -1,0 +1,77 @@
+/*
+ Language.strings
+ warmwind
+ 
+ Created by guiping on 17/3/3.
+ Copyright © 2017年 galaxyWind. All rights reserved.
+ */
+
+"title" = "暖风机";
+"button0" = "修改昵称";
+"button1" = "修改密码";
+"button2" = "删除";
+"button3" = "新设备";
+"button4" = "已配置过的设备";
+"button5" = "取消";
+
+"search0" = "搜索设备";
+"search1" = "路由器Wi-Fi密码";
+"search2" = "密码";
+"search3" = "开始搜索";
+"search4" = "添加";
+"search5" = "修改用户名";
+"search6" = "修改密码";
+"search7" = "请设置用户名";
+"search8" = "请设置密码";
+"search9" = "设备添加失败";
+"search10" = "修改失败";
+"search11" = "搜索过程大概需要5秒,取消并重新开始?";
+"search12" = "等待";
+"search13" = "好的";
+"search14" = "未连接Wi-Fi";
+"search15" = "修改成功";
+"search16" = "修改用户名";
+
+"password1" = "原密码";
+"password2" = "新密码";
+"password3" = "确认密码";
+"password4" = "原密码错误";
+"password5" = "密码不一致";
+"password6" = "密码不能为空";
+"password7" = "修改密码";
+
+
+"add0" = "添加设备";
+"add1" = "序列号";
+"add3" = "确认";
+"add4" = "序列号输入有误";
+"add5" = "请输入昵称";
+
+"more0" = "更多";
+"more1" = "设备信息";
+"more2" = "远程重启";
+"more3" = "该功能无法使用";
+
+"deviceInfo0" = " 系统信息";
+"deviceInfo1" = "固件版本";
+"deviceInfo2" = "硬件版本";
+"deviceInfo3" = "升级包版本";
+"deviceInfo4" = " Wi-Fi信息";
+"deviceInfo5" = "无线名称";
+"deviceInfo6" = " 高级信息";
+"deviceInfo7" = "当前网关信道";
+"deviceInfo8" = "已连接手机数量";
+
+"deviceState0" = "离线";
+"deviceState1" = "在线";
+"deviceState2" = "待机";
+
+"leftvc0" = "关于我们";
+"leftvc1" = "设置";
+
+"about0" = "关于";
+"about1" = "bimar暖风机系列秉承科技改变生活的理念，把小产品落地和大数据挖掘完美相结合，为千家万户提供一系列智能舒适、节能环保、价廉物美的智能硬件。";
+
+"language0" = "语言";
+"language1" = "确定";
+

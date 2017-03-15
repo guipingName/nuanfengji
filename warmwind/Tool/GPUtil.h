@@ -45,4 +45,6 @@
 + (NSInteger) nowTimeIntervalSince1970;
 
 + (NSString *) SSID;
+
++ (CGRect) attributedLabel:(UILabel *) label String:(NSString *) searchString firstSize:(CGFloat) firstSize lastSize:(CGFloat) lastSize;
 @end

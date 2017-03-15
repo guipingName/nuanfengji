@@ -36,7 +36,7 @@
         [self.contentView addSubview:leftImageView];
     }
     leftImageView.image = [UIImage imageNamed:@"bimar语言"];
-    leftImageView.frame = CGRectMake(GPPointX(60), (CGRectGetHeight(self.frame) - leftImageView.image.size.height)/2, leftImageView.image.size.width, leftImageView.image.size.height);
+    leftImageView.frame = CGRectMake(POINT_X(60), (CGRectGetHeight(self.frame) - leftImageView.image.size.height)/2, leftImageView.image.size.width, leftImageView.image.size.height);
     
     if (!rightImageView) {
         rightImageView = [[UIImageView alloc]init];

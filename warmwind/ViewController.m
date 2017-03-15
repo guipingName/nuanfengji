@@ -22,27 +22,22 @@ typedef NS_ENUM(NSInteger, DeviceInfoButon) {
     DeviceInfoButonRename,
     DeviceInfoButonPawssword,
     DeviceInfoButonDelete,
+    DeviceInfoButonMAX
 };
 
-@interface ViewController ()<UIActionSheetDelegate, UITableViewDelegate, UITableViewDataSource>
+@interface ViewController ()<UITableViewDelegate, UITableViewDataSource>
 {
     NSMutableArray *dataArray;
     UIImageView *Imv;
     UIView *hintView;
     BimarDevice *operateModel;
     UITableView *tbviewDeviceList;
-    UIActionSheet *actionSheetAdd;
     SearchView *searchView;
 }
 @end
 
-static NSString *DeviceCell = @"DeviceListTableViewCell";
 
 @implementation ViewController
-
-- (void)dealloc{
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
 
 
 - (void)viewDidLoad {
@@ -55,16 +50,16 @@ static NSString *DeviceCell = @"DeviceListTableViewCell";
     [self addNavigationItemImageName:@"添加" target:self action:@selector(addDevice:) isLeft:NO];
     
     // 图片
-    Imv = [[UIImageView alloc] initWithFrame:CGRectMake(0, 64, kScreenWIDTH, GPHeight(620))];
+    Imv = [[UIImageView alloc] initWithFrame:CGRectMake(0, 64, KSCREEN_WIDTH, GPHEIGHT(620))];
     Imv.image = [UIImage imageNamed:@"banner_default"];
     [self.view addSubview:Imv];
     
     // 搜索界面
     [self createSearchView];
     // 设备列表界面
-    [self showDeviceUI];
+    [self createDeviceListView];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeLanguage) name:@"changeLanguage" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeLanguage) name:LANGUAGE_NOTIFICATION object:nil];
     
 }
 
@@ -73,14 +68,16 @@ static NSString *DeviceCell = @"DeviceListTableViewCell";
     [self loadData];
 }
 
-- (void) changeLanguage{
-    self.title = [ChangeLanguage getContentWithKey:@"title"];
-    //[btnSearch setTitle:[ChangeLanguage getContentWithKey:@"search0"] forState:UIControlStateNormal];
-    searchView.title = [ChangeLanguage getContentWithKey:@"search0"];
-    [tbviewDeviceList reloadData];
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
 
+- (void)dealloc{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
+#pragma mark --------------- 数据更新 ----------------
 - (void) loadData{
     dataArray = [[[DataBaseManager sharedManager] loadDeviceInformation] mutableCopy];
     if (dataArray.count == 0) {
@@ -93,44 +90,23 @@ static NSString *DeviceCell = @"DeviceListTableViewCell";
     [self changeLanguage];
 }
 
-- (void) createSearchView{
-    searchView = [[SearchView alloc]init];
-    searchView.frame = CGRectMake(0, CGRectGetMaxY(Imv.frame), kScreenWIDTH, kScreenHEIGHT - Imv.bounds.size.height - 64);
-    searchView.hidden = YES;
-    [self.view addSubview:searchView];
-    [searchView createHintViewWithBlock:^{
-        [self.navigationController pushViewController:[[SearchDeviceViewController alloc] init] animated:YES];
-    }];
+#pragma mark --------------- 界面更新 ----------------
+- (void) changeLanguage{
+    self.title = [ChangeLanguage getContentWithKey:@"title"];
+    searchView.title = [ChangeLanguage getContentWithKey:@"search0"];
+    [tbviewDeviceList reloadData];
 }
 
-- (void) showDeviceUI{
-    tbviewDeviceList = [[UITableView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(Imv.frame), kScreenWIDTH, kScreenHEIGHT - Imv.bounds.size.height - 64)];
-    [self.view addSubview:tbviewDeviceList];
-    tbviewDeviceList.hidden = YES;
-    [tbviewDeviceList registerClass:[DeviceListTableViewCell class] forCellReuseIdentifier:DeviceCell];
-    tbviewDeviceList.dataSource = self;
-    tbviewDeviceList.delegate = self;
-    tbviewDeviceList.rowHeight = GPHeight(231);
-    tbviewDeviceList.separatorStyle = UITableViewCellSeparatorStyleNone;
-}
-
-- (void) dotap:(UITapGestureRecognizer *) sender{
-    [self.navigationController pushViewController:[[SearchDeviceViewController alloc] init] animated:YES];
-}
-
-- (void) onLeftClicked:(UIBarButtonItem *) sender{
-    [self.mm_drawerController toggleDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
-}
-
+#pragma mark --------------- UITableViewDelegate ----------------
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return dataArray.count;
 }
 
 - (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    DeviceListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:DeviceCell forIndexPath:indexPath];
+    DeviceListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:DEVICELISTCELL forIndexPath:indexPath];
     cell.model = dataArray[indexPath.row];
     [cell.moreButton addTarget:self action:@selector(updateDeviceInfo:) forControlEvents:UIControlEventTouchUpInside];
-    cell.moreButton.tag = 2500 + indexPath.row;
+    cell.moreButton.tag = BTN_DEVICE_MORE_TAG + indexPath.row;
     return cell;
 }
 
@@ -140,51 +116,11 @@ static NSString *DeviceCell = @"DeviceListTableViewCell";
     [self.navigationController pushViewController:deviceVC animated:YES];
 }
 
-// 更多按钮
-- (void) updateDeviceInfo:(UIButton *) sender{
-    BimarDevice *model = dataArray[sender.tag - 2500];
-    [self hintView:model];
-}
 
-- (void) hintView:(BimarDevice *) model{
-    operateModel = model;
-    hintView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWIDTH, kScreenHEIGHT)];
-    hintView.backgroundColor = GPColor(0, 0, 0, 0.5);
-    UIWindow *wind = [UIApplication sharedApplication].keyWindow;
-    [wind addSubview:hintView];
-    
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(cancelView:)];
-    [hintView addGestureRecognizer:tap];
-    hintView.userInteractionEnabled = YES;
-    
-    UIView *opView = [[UIView alloc] initWithFrame:CGRectMake(0, hintView.bounds.size.height - GPPointY(375), hintView.bounds.size.width, GPHeight(375))];
-    opView.backgroundColor = [UIColor whiteColor];
-    [hintView addSubview:opView];
-    
-    UILabel *idLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, opView.bounds.size.width, GPHeight(114))];
-    [opView addSubview:idLabel];
-    idLabel.textAlignment = NSTextAlignmentCenter;
-    idLabel.text = [GPUtil splitString:[NSString stringWithFormat:@"%lu",model.deviceId] splitNum:4];
-    idLabel.textColor = GPColor(128, 128, 128, 1.0);
-    idLabel.font = [UIFont systemFontOfSize:15];
-    
-    UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, GPPointY(114), opView.bounds.size.width, GPHeight(2))];
-    lineView.backgroundColor = GPColor(209, 209, 209, 1.0);
-    [opView addSubview:lineView];
-    NSArray *buttonImgNames = @[@"修改昵称", @"修改密码", @"删除"];
-    NSArray *names = @[[ChangeLanguage getContentWithKey:@"button0"], [ChangeLanguage getContentWithKey:@"button1"], [ChangeLanguage getContentWithKey:@"button2"]];
-    for (int i=0; i<3; i++) {
-        UIButton *button = [GPButton buttonWithType:UIButtonTypeCustom];
-        [opView addSubview:button];
-        button.frame = CGRectMake(GPPointX(70) + GPWidth(270) * i, GPPointY(150), GPWidth(250), GPHeight(150));
-        [button setTitle:names[i] forState:UIControlStateNormal];
-        [button setImage:[UIImage imageNamed:buttonImgNames[i]] forState:UIControlStateNormal];
-        button.titleLabel.font = [UIFont systemFontOfSize: 13.0];
-        button.titleLabel.textAlignment = NSTextAlignmentCenter;
-        [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        button.tag = 478 + i;
-        [button addTarget:self action:@selector(updateDeviceButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-    }
+#pragma mark --------------- 设备更多按钮 ----------------
+- (void) updateDeviceInfo:(UIButton *) sender{
+    BimarDevice *model = dataArray[sender.tag - BTN_DEVICE_MORE_TAG];
+    [self hintView:model];
 }
 
 - (void) cancelView:(UITapGestureRecognizer *) sender{
@@ -193,7 +129,7 @@ static NSString *DeviceCell = @"DeviceListTableViewCell";
 
 - (void) updateDeviceButtonClicked:(UIButton *) sender{
     [hintView removeFromSuperview];
-    switch (sender.tag - 478) {
+    switch (sender.tag - BTN_RENAME_TAG) {
         case DeviceInfoButonRename:
         {
             SearchResultViewController *serVC = [[SearchResultViewController alloc] init];
@@ -231,33 +167,88 @@ static NSString *DeviceCell = @"DeviceListTableViewCell";
     }
 }
 
-- (void) addDevice:(UIBarButtonItem *) sender{
-    actionSheetAdd = [[UIActionSheet alloc]
-                      initWithTitle:nil
-                      delegate:self
-                      cancelButtonTitle:[ChangeLanguage getContentWithKey:@"button5"]
-                      destructiveButtonTitle:nil
-                      otherButtonTitles:[ChangeLanguage getContentWithKey:@"button3"], [ChangeLanguage getContentWithKey:@"button4"], nil];
-    actionSheetAdd.actionSheetStyle = UIActionSheetStyleBlackOpaque;
-    [actionSheetAdd showInView:self.view];
+
+#pragma mark --------------- 创建View ----------------
+- (void) createSearchView{
+    searchView = [[SearchView alloc]init];
+    searchView.frame = CGRectMake(0, CGRectGetMaxY(Imv.frame), KSCREEN_WIDTH, KSCREEN_HEIGHT - Imv.bounds.size.height - 64);
+    searchView.hidden = YES;
+    [self.view addSubview:searchView];
+    [searchView createHintViewWithBlock:^{
+        [self.navigationController pushViewController:[[SearchDeviceViewController alloc] init] animated:YES];
+    }];
 }
 
-- (void) actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
-    if (actionSheet == actionSheetAdd) {
-        if (buttonIndex == 0) {
-            [self.navigationController pushViewController:[[SearchDeviceViewController alloc] init] animated:YES];
-        }
-        if (buttonIndex == 1) {
-            [self.navigationController pushViewController:[[AddDeviceViewController alloc] init] animated:YES];
-        }
+- (void) createDeviceListView{
+    tbviewDeviceList = [[UITableView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(Imv.frame), KSCREEN_WIDTH, KSCREEN_HEIGHT - Imv.bounds.size.height - 64)];
+    [self.view addSubview:tbviewDeviceList];
+    tbviewDeviceList.hidden = YES;
+    [tbviewDeviceList registerClass:[DeviceListTableViewCell class] forCellReuseIdentifier:DEVICELISTCELL];
+    tbviewDeviceList.dataSource = self;
+    tbviewDeviceList.delegate = self;
+    tbviewDeviceList.rowHeight = GPHEIGHT(231);
+    tbviewDeviceList.separatorStyle = UITableViewCellSeparatorStyleNone;
+}
+
+- (void) hintView:(BimarDevice *) model{
+    operateModel = model;
+    hintView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KSCREEN_WIDTH, KSCREEN_HEIGHT)];
+    hintView.backgroundColor = UICOLOR_RGBA(0, 0, 0, 0.5);
+    UIWindow *wind = [UIApplication sharedApplication].keyWindow;
+    [wind addSubview:hintView];
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(cancelView:)];
+    [hintView addGestureRecognizer:tap];
+    hintView.userInteractionEnabled = YES;
+    
+    UIView *opView = [[UIView alloc] initWithFrame:CGRectMake(0, hintView.bounds.size.height - GPHEIGHT(375), hintView.bounds.size.width, GPHEIGHT(375))];
+    opView.backgroundColor = [UIColor whiteColor];
+    [hintView addSubview:opView];
+    
+    UILabel *idLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, opView.bounds.size.width, GPHEIGHT(114))];
+    [opView addSubview:idLabel];
+    idLabel.textAlignment = NSTextAlignmentCenter;
+    idLabel.text = [GPUtil splitString:[NSString stringWithFormat:@"%lu",model.deviceId] splitNum:4];
+    idLabel.textColor = UICOLOR_RGBA(128, 128, 128, 1.0);
+    idLabel.font = [UIFont systemFontOfSize:15];
+    
+    UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, POINT_Y(114), opView.bounds.size.width, GPHEIGHT(2))];
+    lineView.backgroundColor = UICOLOR_RGBA(209, 209, 209, 1.0);
+    [opView addSubview:lineView];
+    NSArray *buttonImgNames = @[@"修改昵称", @"修改密码", @"删除"];
+    NSArray *names = @[[ChangeLanguage getContentWithKey:@"button0"], [ChangeLanguage getContentWithKey:@"button1"], [ChangeLanguage getContentWithKey:@"button2"]];
+    for (int i=0; i<DeviceInfoButonMAX; i++) {
+        UIButton *button = [GPButton buttonWithType:UIButtonTypeCustom];
+        [opView addSubview:button];
+        button.frame = CGRectMake(POINT_X(70) + GPWIDTH(270) * i, POINT_Y(150), GPWIDTH(250), GPHEIGHT(150));
+        [button setTitle:names[i] forState:UIControlStateNormal];
+        [button setImage:[UIImage imageNamed:buttonImgNames[i]] forState:UIControlStateNormal];
+        button.titleLabel.font = [UIFont systemFontOfSize: 13.0];
+        button.titleLabel.textAlignment = NSTextAlignmentCenter;
+        [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        button.tag = BTN_RENAME_TAG + i;
+        [button addTarget:self action:@selector(updateDeviceButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     }
 }
 
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+#pragma mark --------------- NavigationItem事件 ----------------
+- (void) onLeftClicked:(UIBarButtonItem *) sender{
+    [self.mm_drawerController toggleDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
 }
 
+- (void) addDevice:(UIBarButtonItem *) sender{
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertAction *new = [UIAlertAction actionWithTitle:[ChangeLanguage getContentWithKey:@"button3"] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self.navigationController pushViewController:[[SearchDeviceViewController alloc] init] animated:YES];
+    }];
+    UIAlertAction *old = [UIAlertAction actionWithTitle:[ChangeLanguage getContentWithKey:@"button4"] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self.navigationController pushViewController:[[AddDeviceViewController alloc] init] animated:YES];
+    }];
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:[ChangeLanguage getContentWithKey:@"button5"] style:UIAlertActionStyleCancel handler:nil];
+    [alertController addAction:new];
+    [alertController addAction:old];
+    [alertController addAction:cancel];
+    [self presentViewController:alertController animated:YES completion:nil];
+}
 
 @end

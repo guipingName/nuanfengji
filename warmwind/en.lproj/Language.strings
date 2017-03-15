@@ -15,12 +15,12 @@
 "button5" = "Cancel";
 
 "search0" = "Search Device";
-"search1" = "Wifi password";
+"search1" = "Wi-Fi Password";
 "search2" = "Password";
 "search3" = "Search";
 "search4" = "Add Device";
-"search5" = "Modify nickName";
-"search6" = "Modify password";
+"search5" = "Modify NickName";
+"search6" = "Modify Password";
 "search7" = "Please Input DeviceName";
 "search8" = "Please Input Password";
 "search9" = "Failure";
@@ -31,20 +31,27 @@
 "search14" = "Not Connected Wi-Fi";
 "search15" = "Success";
 "search16" = "Modify";
+"search17" = "Device Name";
+"search18" = "New NickName";
 
 "password1" = "Origin";
 "password2" = "New";
 "password3" = "Confirm";
-"password4" = "Orogin Error";
+"password4" = "Origin Error";
 "password5" = " Passwords Not Match";
 "password6" = "Please Input Password";
 "password7" = "Modify";
+"password8" = "Origin Password";
+"password9" = "New Password";
+"password10" = "Confirm Password";
 
 "add0" = "Add Device";
 "add1" = "DeviceId";
+"add2" = "Please input DeviceId";
 "add3" = "Add";
 "add4" = "Error DeviceId";
-"add5" = "Please input nickName";
+"add5" = "Please input NickName";
+"add6" = "Please input Password";
 
 "more0" = "More";
 "more1" = "Device Infomation";
@@ -65,6 +72,11 @@
 "deviceState0" = "offLine";
 "deviceState1" = "working";
 "deviceState2" = "OFF";
+
+"mode0" = "SmallFire";
+"mode1" = "MiddleFire";
+"mode2" = "BigFire";
+"mode3" = "PreventFrost";
 
 "leftvc0" = "About Us";
 "leftvc1" = "Settings";

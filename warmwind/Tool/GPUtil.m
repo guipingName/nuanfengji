@@ -68,4 +68,26 @@
         return [ChangeLanguage getContentWithKey:@"search14"];
     }
 }
+
++ (CGRect) attributedLabel:(UILabel *) label String:(NSString *) searchString firstSize:(CGFloat) firstSize lastSize:(CGFloat) lastSize{
+    NSMutableAttributedString *noteStr = [[NSMutableAttributedString alloc] initWithString:label.text];
+    NSRange ra = [label.text rangeOfString:searchString];
+    if (ra.location != NSNotFound) {
+        NSRange range = NSMakeRange(0, ra.location);
+        //[noteStr addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:range];
+        [noteStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:firstSize] range:range];
+        NSRange range1 = NSMakeRange(ra.location, ra.length);
+        //[noteStr addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor] range:range1];
+        [noteStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:lastSize] range:range1];
+    }
+    else{
+        
+    }
+    NSStringDrawingOptions options = NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading;
+    CGRect labelRect = [noteStr boundingRectWithSize:CGSizeMake(KSCREEN_WIDTH, CGFLOAT_MAX) options:options context:nil];
+    //NSLog(@"size:%@", NSStringFromCGSize(labelRect.size));
+    label.attributedText = noteStr;
+    return labelRect;
+}
+
 @end

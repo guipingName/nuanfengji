@@ -28,16 +28,16 @@
 - (void)setTitle:(NSString *)title{
     _title = title;
     if ([title isEqualToString:@"English"]) {
-        label.textColor = GPColor(102, 102, 102, 1.0);
+        label.textColor = UICOLOR_RGBA(102, 102, 102, 1.0);
         label.font = [UIFont systemFontOfSize:18];
     }
     else{
-        label.textColor = GPColor(51, 51, 51, 1.0);
+        label.textColor = UICOLOR_RGBA(51, 51, 51, 1.0);
         label.font = [UIFont systemFontOfSize:20];
     }
     label.text = title;
-    CGRect labelR = HSGetLabelRect(label.text, 0, 0, 1, 20);
-    label.frame = CGRectMake(CGRectGetMaxX(image.frame) + GPPointX(18), (self.bounds.size.height - labelR.size.height) / 2, labelR.size.width, labelR.size.height);
+    CGRect labelR = LABEL_RECT(label.text, 0, 0, 1, 20);
+    label.frame = CGRectMake(CGRectGetMaxX(image.frame) + POINT_X(18), (self.bounds.size.height - labelR.size.height) / 2, labelR.size.width, labelR.size.height);
 }
 
 - (void)setImgName:(NSString *)imgName{

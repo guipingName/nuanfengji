@@ -19,33 +19,39 @@
 "search2" = "密码";
 "search3" = "开始搜索";
 "search4" = "添加";
-"search5" = "修改用户名";
+"search5" = "修改昵称";
 "search6" = "修改密码";
 "search7" = "请设置用户名";
 "search8" = "请设置密码";
 "search9" = "设备添加失败";
 "search10" = "修改失败";
-"search11" = "搜索过程大概需要5秒,取消并重新开始?";
+"search11" = "搜索过程大概需要5秒，取消并重新开始？";
 "search12" = "等待";
 "search13" = "好的";
 "search14" = "未连接Wi-Fi";
 "search15" = "修改成功";
-"search16" = "修改用户名";
+"search16" = "修改";
+"search17" = "设备名称";
+"search18" = "请设置新的昵称";
 
-"password1" = "原密码";
+"password1" = "旧密码";
 "password2" = "新密码";
 "password3" = "确认密码";
-"password4" = "原密码错误";
+"password4" = "旧密码错误";
 "password5" = "密码不一致";
 "password6" = "密码不能为空";
-"password7" = "修改密码";
-
+"password7" = "确定";
+"password8" = "旧密码";
+"password9" = "新密码";
+"password10" = "确认密码";
 
 "add0" = "添加设备";
 "add1" = "序列号";
+"add2" = "请输入序列号";
 "add3" = "确认";
 "add4" = "序列号输入有误";
 "add5" = "请输入昵称";
+"add6" = "请设置密码";
 
 "more0" = "更多";
 "more1" = "设备信息";
@@ -65,6 +71,11 @@
 "deviceState0" = "离线";
 "deviceState1" = "在线";
 "deviceState2" = "待机";
+
+"mode0" = "小火";
+"mode1" = "中火";
+"mode2" = "大火";
+"mode3" = "防霜冻";
 
 "leftvc0" = "关于我们";
 "leftvc1" = "设置";

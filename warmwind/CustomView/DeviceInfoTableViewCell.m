@@ -29,19 +29,19 @@
         [self.contentView addSubview:lbTitle];
     }
     lbTitle.text = _title;
-    CGRect lbTitleR = HSGetLabelRect(lbTitle.text, 0, 0, 1, 17);
-    lbTitle.frame = CGRectMake(GPPointX(60), (CGRectGetHeight(self.frame) - lbTitleR.size.height) / 2, lbTitleR.size.width, lbTitleR.size.height);
+    CGRect lbTitleR = LABEL_RECT(lbTitle.text, 0, 0, 1, 17);
+    lbTitle.frame = CGRectMake(POINT_X(60), (CGRectGetHeight(self.frame) - lbTitleR.size.height) / 2, lbTitleR.size.width, lbTitleR.size.height);
     
     if (!lbTitleInfo) {
         lbTitleInfo = [[UILabel alloc]init];
         lbTitleInfo.font = [UIFont systemFontOfSize:17];
-        lbTitleInfo.textColor = GPColor(250, 126, 20, 1.0);
+        lbTitleInfo.textColor = THEME_COLOR;
         [self.contentView addSubview:lbTitleInfo];
     }
     lbTitleInfo.text = titleInfo;
     lbTitleInfo.textAlignment = NSTextAlignmentRight;
-    CGRect lbTitleInfoR = HSGetLabelRect(lbTitleInfo.text, CGRectGetWidth(self.frame) - lbTitleR.size.width - 10, 0, 1, 17);
-    lbTitleInfo.frame = CGRectMake(self.bounds.size.width - lbTitleInfoR.size.width - GPPointX(60), (CGRectGetHeight(self.frame) - lbTitleInfoR.size.height) / 2, lbTitleInfoR.size.width, lbTitleInfoR.size.height);
+    CGRect lbTitleInfoR = LABEL_RECT(lbTitleInfo.text, CGRectGetWidth(self.frame) - lbTitleR.size.width - 10, 0, 1, 17);
+    lbTitleInfo.frame = CGRectMake(self.bounds.size.width - lbTitleInfoR.size.width - POINT_X(60), (CGRectGetHeight(self.frame) - lbTitleInfoR.size.height) / 2, lbTitleInfoR.size.width, lbTitleInfoR.size.height);
     
     if (!lineView) {
         lineView = [[UIView alloc]initWithFrame:CGRectMake(0, CGRectGetHeight(self.frame) - 0.5, self.bounds.size.width, 0.5)];

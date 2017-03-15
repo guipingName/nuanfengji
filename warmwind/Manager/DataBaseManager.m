@@ -7,7 +7,6 @@
 //
 
 #import "DataBaseManager.h"
-#import "FMDB.h"
 
 
 @implementation DataBaseManager{
@@ -55,9 +54,6 @@
 -(BOOL)addDeviceWithDeviceId:(NSInteger)deviceId deviceName:(NSString *)deviceName password:(NSString *)password{
     return [_fmdb executeUpdate:@"insert into deviceList (deviceId, deviceName, password) values (?,?,?);", @(deviceId), deviceName, password];
 }
-//-(BOOL)addDeviceWithDeviceId:(long long)deviceId deviceName:(NSString *)deviceName password:(NSString *)password{
-//    return [_fmdb executeUpdate:@"insert into deviceList (deviceId, deviceName, password) values (?,?,?);", @(deviceId), deviceName, password];
-//}
 
 
 -(NSArray *)loadDeviceInformation{

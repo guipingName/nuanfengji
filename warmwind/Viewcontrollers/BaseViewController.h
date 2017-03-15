@@ -21,5 +21,9 @@
  */
 - (void) addNavigationItemImageName:(NSString *) imageName target:(id)target action:(SEL)selector isLeft:(BOOL)isLeft;
 
+/**
+ *  leftItem点击事件
+ *
+ */
 - (void) back:(UIButton *) sender;
 @end

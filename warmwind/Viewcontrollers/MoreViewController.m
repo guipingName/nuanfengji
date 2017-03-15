@@ -30,7 +30,7 @@
     self.title = [ChangeLanguage getContentWithKey:@"more0"];
     [GPUtil addBgImageViewWithImageName:@"bimar背景" SuperView:self.view];
     self.automaticallyAdjustsScrollViewInsets = NO;
-    myTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, kScreenWIDTH, kScreenHEIGHT - 64)];
+    myTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, KSCREEN_WIDTH, KSCREEN_HEIGHT - 64)];
     [self.view addSubview:myTableView];
     myTableView.backgroundColor = [UIColor clearColor];
     myTableView.delegate = self;
@@ -38,16 +38,21 @@
     myTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [myTableView registerClass:[SettingTableViewCell class] forCellReuseIdentifier:SETTINGCELL];
     [myTableView registerClass:[LeftVCTableViewCell class] forCellReuseIdentifier:LEFTCELL];
-    myTableView.rowHeight = GPPointY(231);
+    myTableView.rowHeight = POINT_Y(231);
     imageNamesArray = @[@"设备信息", @"远程重启", @"bimar摄氏度"];
     titleArray = @[[ChangeLanguage getContentWithKey:@"more1"], [ChangeLanguage getContentWithKey:@"more2"]];
 }
 
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+#pragma mark --------------- UITableViewDelegate ----------------
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return imageNamesArray.count;
 }
-
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.row == imageNamesArray.count - 1) {
@@ -86,6 +91,8 @@
     }
 }
 
+
+#pragma mark --------------- UISwitch事件 ----------------
 - (void) changeTemperatureType:(UISwitch *) sender{
     BOOL temperatureFlag;
     if (sender.isOn) {
@@ -96,7 +103,8 @@
         temperatureFlag = YES;
         _model.temperatureFlag = YES;
     }
-    BOOL state = [[DataBaseManager sharedManager] updateDeviceInfoWithdevice:_model];
+//    BOOL state = [[DataBaseManager sharedManager] updateDeviceInfoWithdevice:_model];
+    BOOL state = [_model updateDeviceInfo];
     if (state) {
         [myTableView reloadData];
         NSNotification *note = [[NSNotification alloc] initWithName:@"temperatureFlag" object:@(temperatureFlag) userInfo:nil];
@@ -104,10 +112,7 @@
     }
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
+
 
 /*
 #pragma mark - Navigation

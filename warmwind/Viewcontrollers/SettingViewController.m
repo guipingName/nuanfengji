@@ -30,11 +30,6 @@ typedef NS_ENUM(NSInteger, SettingType) {
 @implementation SettingViewController
 
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
@@ -42,7 +37,7 @@ typedef NS_ENUM(NSInteger, SettingType) {
     [GPUtil addBgImageViewWithImageName:@"bimar背景" SuperView:self.view];
     userDefaults = [NSUserDefaults standardUserDefaults];
     self.automaticallyAdjustsScrollViewInsets = NO;
-    myTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, kScreenWIDTH, kScreenHEIGHT - 64)];
+    myTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, KSCREEN_WIDTH, KSCREEN_HEIGHT - 64)];
     [self.view addSubview:myTableView];
     myTableView.backgroundColor = [UIColor clearColor];
     myTableView.delegate = self;
@@ -50,16 +45,21 @@ typedef NS_ENUM(NSInteger, SettingType) {
     myTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [myTableView registerClass:[SettingTableViewCell class] forCellReuseIdentifier:SETTINGCELL];
     [myTableView registerClass:[SetLanguageTableViewCell class] forCellReuseIdentifier:LANGUAGECELL];
-    myTableView.rowHeight =  GPPointY(231);
+    myTableView.rowHeight =  POINT_Y(231);
     
     dataArray = @[@"bimar声音", @"bimar震动"];
 }
 
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+#pragma mark --------------- UITableViewDelegate ----------------
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return 3;
 }
-
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
@@ -96,13 +96,47 @@ typedef NS_ENUM(NSInteger, SettingType) {
                 cell.rightSwitch.on = NO;
             }
         }
-        cell.rightSwitch.tag = 245 + indexPath.row;
+        cell.rightSwitch.tag = SWITCH_TAG + indexPath.row;
         return cell;
     }
 }
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (indexPath.row == 2) {
+        for (UIView *view in self.view.subviews) {
+            if ([view isKindOfClass:[GPPickerView class]]) {
+                return;
+            }
+        }
+        GPPickerView *pickerView = [[GPPickerView alloc] initWithFrame:CGRectMake(0, KSCREEN_HEIGHT, KSCREEN_WIDTH, POINT_Y(969))];
+        [self.view addSubview:pickerView];
+        [UIView animateWithDuration:0.3 animations:^{
+            CGRect rect = pickerView.frame;
+            rect.origin.y -= POINT_Y(969);
+            pickerView.frame = rect;
+        }];
+        pickerView.block = ^(NSString *newLanguage) {
+            [userDefaults setObject:newLanguage forKey:LANGUAGE];
+            [userDefaults synchronize];
+            [myTableView reloadData];
+            if ([newLanguage isEqualToString:@"Italian"]) {
+                newLanguage = @"en";
+            }
+            if (![newLanguage isEqualToString:[ChangeLanguage userLanguage]]) {
+                [ChangeLanguage setUserlanguage:newLanguage];
+                self.title = [ChangeLanguage getContentWithKey:@"leftvc1"];
+                [[NSNotificationCenter defaultCenter] postNotificationName:LANGUAGE_NOTIFICATION object:nil];
+            }
+        };
+    }
+    else{
+        return;
+    }
+}
+
+#pragma mark --------------- UISwitch事件 ----------------
 - (void) doSwitch:(UISwitch *) sender{
-    switch (sender.tag - 245) {
+    switch (sender.tag - SWITCH_TAG) {
         case SettingTypeSound:
         {
             if (sender.isOn) {
@@ -124,43 +158,9 @@ typedef NS_ENUM(NSInteger, SettingType) {
             }
             [userDefaults synchronize];
             break;
-        }            
+        }
         default:
             break;
-    }
-}
-
-
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.row == 2) {
-        for (UIView *view in self.view.subviews) {
-            if ([view isKindOfClass:[GPPickerView class]]) {
-                return;
-            }
-        }
-        GPPickerView *pickerView = [[GPPickerView alloc] initWithFrame:CGRectMake(0, kScreenHEIGHT, kScreenWIDTH, GPPointY(969))];
-        [self.view addSubview:pickerView];
-        [UIView animateWithDuration:0.3 animations:^{
-            CGRect rect = pickerView.frame;
-            rect.origin.y -= GPPointY(969);
-            pickerView.frame = rect;
-        }];
-        pickerView.block = ^(NSString *newLanguage) {
-            [userDefaults setObject:newLanguage forKey:@"language"];
-            [userDefaults synchronize];
-            [myTableView reloadData];
-            if ([newLanguage isEqualToString:@"Italian"]) {
-                newLanguage = @"en";
-            }
-            if (![newLanguage isEqualToString:[ChangeLanguage userLanguage]]) {
-                [ChangeLanguage setUserlanguage:newLanguage];
-                self.title = [ChangeLanguage getContentWithKey:@"leftvc1"];
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"changeLanguage" object:nil];
-            }
-        };
-    }
-    else{
-        return;
     }
 }
 

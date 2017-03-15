@@ -23,9 +23,9 @@
     
     [ChangeLanguage initUserLanguage];
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
-    if (![userDef objectForKey:@"language"]) {
-        [ChangeLanguage setUserlanguage:@"zh-Hans"];
-        [userDef setObject:@"zh-Hans" forKey:@"language"];
+    if (![userDef objectForKey:LANGUAGE]) {
+        [ChangeLanguage setUserlanguage:CHINESE];
+        [userDef setObject:CHINESE forKey:LANGUAGE];
         [userDef synchronize];
     }
     
@@ -34,7 +34,7 @@
     MMDrawerController *drawerController = [[MMDrawerController alloc] initWithCenterViewController:nav leftDrawerViewController:leftVC];
     [drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeNone];
     [drawerController setCloseDrawerGestureModeMask:MMCloseDrawerGestureModeAll];
-    [drawerController setMaximumLeftDrawerWidth:GPPointX(759)];
+    [drawerController setMaximumLeftDrawerWidth:GPWIDTH(759)];
     
     self.window.rootViewController = drawerController;
     return YES;

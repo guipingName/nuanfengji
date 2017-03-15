@@ -32,7 +32,7 @@
 -(void)setTitle:(NSString *)title{
     _title = title;
     label.text = title;
-    CGRect labelR = HSGetLabelRect(label.text, 0, 0, 1, 13);
+    CGRect labelR = LABEL_RECT(label.text, 0, 0, 1, 13);
 //    hintView.frame = CGRectMake(0, 0, _sw(loadingImg.image) > _sw(labelR) ? _sw(loadingImg.image) : _sw(labelR), _sh(loadingImg.image) + _sh(labelR));
 //    hintView.center = CGPointMake(_fsw(self)/2, _fsh(self)/2);
 //    loadingImg.frame = CGRectMake((_fsw(hintView) - _sw(loadingImg.image))/2, 0, _sw(loadingImg.image), _sh(loadingImg.image));

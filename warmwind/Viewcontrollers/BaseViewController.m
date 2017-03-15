@@ -8,7 +8,9 @@
 
 #import "BaseViewController.h"
 
-@interface BaseViewController ()
+@interface BaseViewController (){
+    UIImageView *navigationImageView;
+}
 
 @end
 
@@ -22,22 +24,41 @@
     
     self.view.backgroundColor = [UIColor whiteColor];
     
-    //[self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"bimar背景"]forBarMetrics:UIBarMetricsDefault];
-    self.navigationController.navigationBar.barTintColor = GPColor(250, 126, 20, 1.0);
+    self.navigationController.navigationBar.barTintColor = THEME_COLOR;
     
     [self addNavigationItemImageName:@"返回" target:self action:@selector(back:) isLeft:YES];
+    navigationImageView = [self findHairlineImageViewUnder:self.navigationController.navigationBar];
+}
+
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    navigationImageView.hidden = YES;
+}
+
+-(UIImageView *)findHairlineImageViewUnder:(UIView *)view {
+    if ([view isKindOfClass:UIImageView.class] && view.bounds.size.height <= 1.0) {
+        return (UIImageView *)view;
+    }
+    for (UIView *subview in view.subviews) {
+        UIImageView *imageView = [self findHairlineImageViewUnder:subview];
+        if (imageView) {
+            return imageView;
+        }
+    }
+    return nil;
 }
 
 -(void)addNavigationItemImageName:(NSString *) imageName target:(id)target action:(SEL)selector isLeft:(BOOL)isLeft{
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     if (isLeft) {
-        btn.frame = CGRectMake(-13, 0.0, 43, 43);
+        btn.frame = CGRectMake(-13, 0, 44, 44);
     }
     else{
-        btn.frame = CGRectMake(13, 0.0, 43, 43);
+        btn.frame = CGRectMake(13, 0, 44, 44);
     }
     [btn addTarget:target action:selector forControlEvents:UIControlEventTouchDown];
     [btn setBackgroundImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
+    //[btn setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 43, 43)];
     [view addSubview:btn];
     UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:view];

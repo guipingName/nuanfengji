@@ -29,9 +29,9 @@
     //[GPUtil addBgImageViewWithImageName:@"bimar背景" SuperView:self.view];
     self.automaticallyAdjustsScrollViewInsets = NO;
     
-    myTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, kScreenWIDTH, kScreenHEIGHT - 64) style:UITableViewStyleGrouped];
+    myTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, KSCREEN_WIDTH, KSCREEN_HEIGHT - 64) style:UITableViewStyleGrouped];
     [self.view addSubview:myTableView];
-    myTableView.rowHeight = GPPointY(231);
+    myTableView.rowHeight = POINT_Y(231);
     myTableView.backgroundColor = [UIColor clearColor];
     myTableView.dataSource = self;
     myTableView.delegate = self;
@@ -42,7 +42,28 @@
     [self loadData];
 }
 
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
 
+#pragma mark --------------- 加载数据 ----------------
+- (void) loadData{
+    if (!titleArray) {
+        titleArray = [NSMutableArray array];
+    }
+    NSArray *systemInfo = @[[ChangeLanguage getContentWithKey:@"add1"], [ChangeLanguage getContentWithKey:@"deviceInfo1"], [ChangeLanguage getContentWithKey:@"deviceInfo2"], [ChangeLanguage getContentWithKey:@"deviceInfo3"]];
+    NSArray *systemInfo1 = @[[GPUtil splitString:[NSString stringWithFormat:@"%lu",_model.deviceId] splitNum:4], @"4.0.0(svn 209)", @"1.0.0", [[NSBundle mainBundle] infoDictionary][@"CFBundleShortVersionString"]];
+    NSArray *WiFi = @[[ChangeLanguage getContentWithKey:@"deviceInfo5"]];
+    NSArray *WiFi1 = @[[GPUtil SSID]];
+    NSArray *high = @[[ChangeLanguage getContentWithKey:@"deviceInfo7"], [ChangeLanguage getContentWithKey:@"deviceInfo8"]];
+    NSArray *high1 = @[@"5", @"2"];
+    titleArray = @[systemInfo, WiFi, high];
+    titleInfoArray = @[systemInfo1, WiFi1, high1];
+}
+
+
+#pragma mark --------------- UITableViewDelegate ----------------
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return titleArray.count;
 }
@@ -52,11 +73,10 @@
     return array.count;
 }
 
-
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     NSArray *titles= @[[ChangeLanguage getContentWithKey:@"deviceInfo0"], [ChangeLanguage getContentWithKey:@"deviceInfo4"], [ChangeLanguage getContentWithKey:@"deviceInfo6"]];
     UILabel *label = [[UILabel alloc] init];
-    label.backgroundColor = GPColor(230, 231, 232, 1.0);
+    label.backgroundColor = UICOLOR_RGBA(230, 231, 232, 1.0);
     label.text = titles[section];
     label.font = [UIFont systemFontOfSize:20];
     return label;
@@ -77,11 +97,11 @@
 
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return GPPointY(150);
+    return GPHEIGHT(150);
 }
 
 - (CGFloat) tableView:(UITableView *)tableView estimatedHeightForHeaderInSection:(NSInteger)section{
-    return GPPointY(150);
+    return GPHEIGHT(150);
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
@@ -95,26 +115,6 @@
     return cell;
 }
 
-
-- (void) loadData{
-    if (!titleArray) {
-        titleArray = [NSMutableArray array];
-    }
-    NSArray *systemInfo = @[[ChangeLanguage getContentWithKey:@"add1"], [ChangeLanguage getContentWithKey:@"deviceInfo1"], [ChangeLanguage getContentWithKey:@"deviceInfo2"], [ChangeLanguage getContentWithKey:@"deviceInfo3"]];
-    NSArray *systemInfo1 = @[[GPUtil splitString:[NSString stringWithFormat:@"%lu",_model.deviceId] splitNum:4], @"4.0.0(svn 209)", @"1.0.0", [[NSBundle mainBundle] infoDictionary][@"CFBundleShortVersionString"]];
-    NSArray *WiFi = @[[ChangeLanguage getContentWithKey:@"deviceInfo5"]];
-    NSArray *WiFi1 = @[[GPUtil SSID]];
-    NSArray *high = @[[ChangeLanguage getContentWithKey:@"deviceInfo7"], [ChangeLanguage getContentWithKey:@"deviceInfo8"]];
-    NSArray *high1 = @[@"5", @"2"];
-    titleArray = @[systemInfo, WiFi, high];
-    titleInfoArray = @[systemInfo1, WiFi1, high1];
-}
-
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 /*
 #pragma mark - Navigation

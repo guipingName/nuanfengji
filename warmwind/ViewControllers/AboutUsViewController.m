@@ -20,56 +20,94 @@
     self.title = [ChangeLanguage getContentWithKey:@"about0"];
     //[GPUtil addBgImageViewWithImageName:@"bimar背景" SuperView:self.view];
     
-    UIImageView *Imv = [[UIImageView alloc] initWithFrame:CGRectMake((kScreenWIDTH - GPWidth(400)) / 2, GPPointY(30) + 64, GPWidth(400), GPWidth(400))];
-    Imv.image = [UIImage imageNamed:@"1024"];
+    UIImageView *Imv = [[UIImageView alloc] initWithFrame:CGRectMake((KSCREEN_WIDTH - GPWIDTH(345)) / 2, POINT_Y(81) + 64, GPWIDTH(345), GPWIDTH(345))];
+    Imv.backgroundColor = THEME_COLOR;
+    Imv.layer.cornerRadius = 10;
+    Imv.layer.masksToBounds = YES;
+    Imv.image = [UIImage imageNamed:@"左侧边栏logo"];
     [self.view addSubview:Imv];
     
-    UILabel *lbAppName = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(Imv.frame) + GPPointY(10), kScreenWIDTH, 50)];
+    UILabel *lbAppName = [[UILabel alloc] init];
     lbAppName.text = [ChangeLanguage getContentWithKey:@"title"];
-    lbAppName.textColor = GPColor(250, 126, 20, 1.0);
-    lbAppName.font = [UIFont systemFontOfSize:30];
+    lbAppName.textColor = THEME_COLOR;
+    lbAppName.font = [UIFont systemFontOfSize:20];
+    CGRect lbAppNameR = LABEL_RECT(lbAppName.text, 0, 0, 1, 20);
+    lbAppName.frame = CGRectMake(0, CGRectGetMaxY(Imv.frame) + POINT_Y(39), KSCREEN_WIDTH, lbAppNameR.size.height);
     lbAppName.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:lbAppName];
 
+    
     UILabel *lbInfo = [[UILabel alloc] init];
-    lbInfo.textColor = GPColor(250, 126, 20, 1.0);
+    lbInfo.textColor = THEME_COLOR;
     lbInfo.numberOfLines = 0;
-    lbInfo.font = [UIFont systemFontOfSize:18];
+    lbInfo.font = [UIFont systemFontOfSize:16];
     NSString *textStr = [ChangeLanguage getContentWithKey:@"about1"];
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:textStr];
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-    [paragraphStyle setLineSpacing:10];
+    [paragraphStyle setLineSpacing:POINT_Y(63)];
     [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, [textStr length])];
     lbInfo.attributedText = attributedString;
-    CGRect lbInfoR = HSGetLabelRect(lbInfo.text, kScreenWIDTH - GPPointX(200), 0, 1, 18);
-    lbInfo.frame = CGRectMake(GPPointX(100), CGRectGetMaxY(lbAppName.frame) + GPPointY(60), lbInfoR.size.width, lbInfoR.size.height);
+    NSDictionary *attr = @{NSFontAttributeName:[UIFont systemFontOfSize:16],NSParagraphStyleAttributeName:paragraphStyle};
+    CGRect lbInfoR = [lbInfo.text boundingRectWithSize:CGSizeMake(KSCREEN_WIDTH - POINT_Y(198), 0) options:NSStringDrawingTruncatesLastVisibleLine|NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading attributes:attr context:nil];
+    lbInfo.frame = CGRectMake(0, 0, lbInfoR.size.width, lbInfoR.size.height);
     [self.view addSubview:lbInfo];
     [lbInfo sizeToFit];
+    lbInfo.userInteractionEnabled = YES;
+    
+    UIScrollView *scroView = [[UIScrollView alloc] init];
+    [scroView addSubview:lbInfo];
+    scroView.showsVerticalScrollIndicator = NO;
+    scroView.contentSize = CGSizeMake(KSCREEN_WIDTH - GPWIDTH(198), lbInfoR.size.height);
+    [self.view addSubview:scroView];
+    
+    UIView *telQQbackView = [[UIView alloc] init];
+    [self.view addSubview:telQQbackView];
     
     UILabel *lbTelePhone = [[UILabel alloc] init];
-    lbTelePhone.text = @"Tel: 400-000-9879   QQ: 4000009879";
-    lbTelePhone.textColor = GPColor(250, 126, 20, 1.0);
-    lbTelePhone.textAlignment = NSTextAlignmentCenter;
-    [self.view addSubview:lbTelePhone];
+    lbTelePhone.text = @"Tel: 400-000-9879";
+    lbTelePhone.textColor = THEME_COLOR;
+    lbTelePhone.textAlignment = NSTextAlignmentRight;
+    lbTelePhone.font = [UIFont systemFontOfSize:16];
+    CGRect lbTelePhoneR = LABEL_RECT(lbTelePhone.text, 0, 0, 1, 16);
+    [telQQbackView addSubview:lbTelePhone];
+    UILabel *lbQQ = [[UILabel alloc] init];
+    lbQQ.text = @"QQ: 4000009879";
+    lbQQ.textColor = THEME_COLOR;
+    lbQQ.textAlignment = NSTextAlignmentLeft;
+    lbQQ.font = [UIFont systemFontOfSize:16];
+    CGRect lbQQR = LABEL_RECT(lbQQ.text, 0, 0, 1, 16);
+    [telQQbackView addSubview:lbQQ];
     
     UILabel *lbVersion = [[UILabel alloc] init];
     lbVersion.text = [[NSBundle mainBundle] infoDictionary][@"CFBundleShortVersionString"];
-    lbVersion.textColor = [UIColor grayColor];
+    lbVersion.textColor = UICOLOR_RGBA(153, 153, 153, 1.0);
+    lbVersion.font = [UIFont systemFontOfSize:15];
     lbVersion.textAlignment = NSTextAlignmentCenter;
+    CGRect lbVersionR = LABEL_RECT(lbVersion.text, 0, 0, 1, 15);
     [self.view addSubview:lbVersion];
     
+    // 获取当前时间
+    NSDate *date = [NSDate date];
+    NSDateFormatter *formater = [[NSDateFormatter alloc] init];
+    [formater setDateFormat:@"yyyy"];
+    NSString *year = [formater stringFromDate:date];
+
     UILabel *lbRight = [[UILabel alloc] init];
-    lbRight.text = @"Copyright©2017 GALAXYWIND Network Systems Co.,Ltd.\nAll rights reserved";
+    lbRight.text = [NSString stringWithFormat:@"Copyright©%@ GALAXYWIND Network Systems Co.,Ltd.\nAll rights reserved", year];
     lbRight.textAlignment = NSTextAlignmentCenter;
     lbRight.numberOfLines = 0;
-    lbRight.font = [UIFont systemFontOfSize:14];
-    lbRight.textColor = [UIColor grayColor];
-    CGRect lbRightR = HSGetLabelRect(lbRight.text, kScreenWIDTH - GPPointX(200), 0, 1, 14);
-    lbRight.frame = CGRectMake(GPPointX(100), kScreenHEIGHT - lbRightR.size.height - 10, lbRightR.size.width, lbRightR.size.height);
+    lbRight.font = [UIFont systemFontOfSize:15];
+    lbRight.textColor = UICOLOR_RGBA(153, 153, 153, 1.0);
+    CGRect lbRightR = LABEL_RECT(lbRight.text, KSCREEN_WIDTH - POINT_X(198), 0, 1, 15);
+    lbRight.frame = CGRectMake(POINT_X(99), KSCREEN_HEIGHT - lbRightR.size.height - POINT_Y(200), lbRightR.size.width, lbRightR.size.height);
     [self.view addSubview:lbRight];
     
-    lbVersion.frame = CGRectMake(0, CGRectGetMinY(lbRight.frame) - GPPointY(100), kScreenWIDTH, GPPointY(60));
-    lbTelePhone.frame = CGRectMake(0, CGRectGetMinY(lbVersion.frame) - GPPointY(100), kScreenWIDTH, GPPointY(60));
+    lbVersion.frame = CGRectMake(0, CGRectGetMinY(lbRight.frame) - POINT_Y(27) - lbVersionR.size.height, KSCREEN_WIDTH, lbVersionR.size.height);
+    telQQbackView.frame = CGRectMake(0, CGRectGetMinY(lbVersion.frame) - POINT_Y(69) - lbTelePhoneR.size.height, KSCREEN_WIDTH, lbTelePhoneR.size.height);
+    lbTelePhone.frame = CGRectMake((KSCREEN_WIDTH - lbTelePhoneR.size.width - lbQQR.size.width - POINT_X(30)) / 2, 0, lbTelePhoneR.size.width, lbTelePhoneR.size.height);
+    lbQQ.frame = CGRectMake(CGRectGetMaxX(lbTelePhone.frame) + POINT_X(30), 0, lbQQR.size.width, lbQQR.size.height);
+    
+    scroView.frame = CGRectMake(POINT_X(99), CGRectGetMaxY(lbAppName.frame) + POINT_Y(90), KSCREEN_WIDTH - GPWIDTH(198), CGRectGetMinY(telQQbackView.frame) - POINT_Y(150) - CGRectGetMaxY(lbAppName.frame));
     
 }
 
@@ -77,7 +115,6 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
 /*
 #pragma mark - Navigation
 

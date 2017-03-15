@@ -34,7 +34,7 @@ static NSBundle *bundle = nil;
             currLanguage = @"en";
         }
         else if ([currLanguage hasPrefix:@"zh"]) {
-            currLanguage = @"zh-Hans";
+            currLanguage = CHINESE;
         }
         else {
             currLanguage = @"en";

@@ -8,7 +8,24 @@
 
 #import "BimarDevice.h"
 
-@implementation BimarDevice
+@implementation BimarDevice{
+    FMDatabase *_fmdb;
+}
+
+- (instancetype)init{
+    if (self = [super init]) {
+        NSArray *documentsPath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        NSString *dbPath = [[documentsPath firstObject] stringByAppendingPathComponent:@"deviceList.db"];
+        //NSLog(@"%@",dbPath);
+        if (!_fmdb) {
+            _fmdb = [[FMDatabase alloc] initWithPath:dbPath];
+        }
+        if ([_fmdb open]) {
+
+        }
+    }
+    return self;
+}
 
 -(BOOL)turnOnOrOffWithState:(BOOL)on{
     return YES;
@@ -71,5 +88,18 @@
     return YES;
 }
 
+-(BOOL) renameWithDeviceName:(NSString *) deviceName{
+    NSString *str = [NSString stringWithFormat:@"update deviceList set deviceName='%@' where deviceId=%lld;", deviceName, (long long)_deviceId];
+    return [_fmdb executeUpdate:str];
+}
 
+-(BOOL) modifyPasswordWithPassword:(NSString *) password{
+    NSString *str = [NSString stringWithFormat:@"update deviceList set password='%@' where deviceId=%lld;", password, (long long)_deviceId];
+    return [_fmdb executeUpdate:str];
+}
+
+-(BOOL) updateDeviceInfo{
+    NSString *str = [NSString stringWithFormat:@"update deviceList set workState=%d, workMode=%d,windState=%d, autoTime=%d, endtime=%d,temperatureFlag=%d, Centigrade=%lu,Fahrenheit=%lu, indoorCentigrade=%d, indoorFahrenheit=%d where deviceId=%lld;", (int)_workState , (int)_workMode, (int)_windState, (int)_autoTime, (int)_endtime, (int)_temperatureFlag, _Centigrade, _Fahrenheit, (int)_indoorCentigrade, (int)_indoorFahrenheit, (long long)_deviceId];
+    return [_fmdb executeUpdate:str];
+}
 @end

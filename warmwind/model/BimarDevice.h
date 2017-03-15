@@ -16,22 +16,22 @@ typedef NS_ENUM(NSInteger, BimarWorkMode) {
 };
 
 typedef NS_ENUM(NSInteger, BimarAutoOffTime) {
-    BimarAutoOffTimeNone,       // 关闭
-    BimarAutoOffTimeOne,        // 1小时
-    BimarAutoOffTimeTwo,
-    BimarAutoOffTimeThree,
-    BimarAutoOffTimeFour,
-    BimarAutoOffTimeFive,
-    BimarAutoOffTimeSix,
-    BimarAutoOffTimeSeven,
-    BimarAutoOffTimeEight,
-    BimarAutoOffTimeNine,
-    BimarAutoOffTimeTen,
-    BimarAutoOffTimeEleven,
-    BimarAutoOffTimeTwelve,
-    BimarAutoOffTimeThirteen,
-    BimarAutoOffTimeFourteen,
-    BimarAutoOffTimeFifteen     // 15小时
+    BimarAutoOffTimeNone,           // 关闭
+    BimarAutoOffTimeOne,            // 1小时
+    BimarAutoOffTimeTwo,            // 2小时
+    BimarAutoOffTimeThree,          // 3小时
+    BimarAutoOffTimeFour,           // 4小时
+    BimarAutoOffTimeFive,           // 5小时
+    BimarAutoOffTimeSix,            // 6小时
+    BimarAutoOffTimeSeven,          // 7小时
+    BimarAutoOffTimeEight,          // 8小时
+    BimarAutoOffTimeNine,           // 9小时
+    BimarAutoOffTimeTen,            // 10小时
+    BimarAutoOffTimeEleven,         // 11小时
+    BimarAutoOffTimeTwelve,         // 12小时
+    BimarAutoOffTimeThirteen,       // 13小时
+    BimarAutoOffTimeFourteen,       // 14小时
+    BimarAutoOffTimeFifteen         // 15小时
 };
 
 typedef NS_ENUM(NSInteger, BimarWorkState) {
@@ -52,7 +52,7 @@ typedef NS_ENUM(NSInteger, BimarWorkState) {
 /**密码*/
 @property (nonatomic, copy) NSString *password;
 
-/**运行状态()*/
+/**运行状态*/
 @property (nonatomic, assign) BimarWorkState workState;
 
 /**运行模式*/
@@ -84,6 +84,41 @@ typedef NS_ENUM(NSInteger, BimarWorkState) {
 
 
 /**
+ *  打开或关闭
+ *
+ *  @param isOn 状态:YES打开 NO关闭
+ *
+ *  @return 操作状态:YES 成功; NO 失败
+ */
+- (BOOL) turnOnOrOffWithState:(BOOL) isOn;
+
+/**
+ *  设置自动关闭
+ *
+ *  @param time 设置的时长
+ *
+ *  @return 操作状态:YES 成功; NO 失败
+ */
+- (BOOL) setTimeToAutoOff:(BimarAutoOffTime) time;
+
+/**
+ *  改变风的使用状态
+ *
+ *  @param isOn 打开状态:YES打开 NO关闭
+ *
+ *  @return 操作状态:YES 成功; NO 失败
+ */
+- (BOOL) changeWindState:(BOOL) isOn;
+
+/**
+ *  改变运行模式
+ *
+ *  @return 当前运行模式
+ */
+- (BOOL) changeWorkMode:(BimarWorkMode) workMode;
+
+
+/**
  *  增加温度值
  *
  *  @return 当前温度值
@@ -98,38 +133,28 @@ typedef NS_ENUM(NSInteger, BimarWorkState) {
 - (NSUInteger) decreaseTemperature;
 
 /**
- *  改变运行模式
+ *  修改设备名称
  *
- *  @return 当前运行模式
+ *  @param deviceName  设备名称
+ *
+ *  @return 成功返回YES
  */
-- (BOOL) changeWorkMode:(BimarWorkMode) workMode;
+-(BOOL) renameWithDeviceName:(NSString *) deviceName;
 
 /**
- *  改变风的使用状态
+ *  修改设备名称
  *
- *  @param isOn 打开状态:YES打开 NO关闭
+ *  @param password  设备密码
  *
- *  @return 操作状态:YES 成功; NO 失败
+ *  @return 成功返回YES
  */
-- (BOOL) changeWindState:(BOOL) isOn;
+-(BOOL) modifyPasswordWithPassword:(NSString *) password;
 
 /**
- *  设置自动关闭
+ *  修改设备名称
  *
- *  @param time 设置的时长
- *
- *  @return 操作状态:YES 成功; NO 失败
+ *  @return 成功返回YES
  */
-- (BOOL) setTimeToAutoOff:(BimarAutoOffTime) time;
-
-/**
- *  打开或关闭
- *
- *  @param isOn 状态:YES打开 NO关闭
- *
- *  @return 操作状态:YES 成功; NO 失败
- */
-- (BOOL) turnOnOrOffWithState:(BOOL) isOn;
-
+- (BOOL) updateDeviceInfo;
 
 @end

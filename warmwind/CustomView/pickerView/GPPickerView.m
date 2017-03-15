@@ -42,7 +42,7 @@
 - (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view{
     for(UIView *singleLine in pickerView.subviews){
         if (singleLine.frame.size.height < 1){
-            singleLine.backgroundColor = GPColor(209, 209, 209, 1.0);
+            singleLine.backgroundColor = UICOLOR_RGBA(209, 209, 209, 1.0);
         }
     }
     PickerViewCell *pickerCell = (PickerViewCell *)view;
@@ -56,8 +56,6 @@
     return pickerCell;
 }
 
-
-
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         self.backgroundColor = [UIColor whiteColor];
@@ -65,7 +63,7 @@
         titleLabel.text = [ChangeLanguage getContentWithKey:@"language0"];
         titleLabel.font = [UIFont systemFontOfSize:20];
         titleLabel.textAlignment = NSTextAlignmentCenter;
-        titleLabel.textColor = GPColor(250, 126, 20, 1.0);
+        titleLabel.textColor = THEME_COLOR;
         [self addSubview:titleLabel];
         
         myPickerView = [[UIPickerView alloc]init];
@@ -84,11 +82,11 @@
             [self addSubview:button];
             [button setTitle:buttonNames[i] forState:UIControlStateNormal];
             button.titleLabel.font = [UIFont systemFontOfSize:17];
-            [button setTitleColor:GPColor(250, 126, 20, 1.0) forState:UIControlStateNormal];
+            [button setTitleColor:UICOLOR_RGBA(250, 126, 20, 1.0) forState:UIControlStateNormal];
             [button addTarget:self action:@selector(buttonClicked:) forControlEvents:UIControlEventTouchUpInside];
             button.layer.borderWidth = 1;
-            button.layer.borderColor = GPColor(209, 209, 209, 1.0).CGColor;
-            button.tag = 485 + i;
+            button.layer.borderColor = UICOLOR_RGBA(209, 209, 209, 1.0).CGColor;
+            button.tag = BTN_CANCEL_TAG + i;
         }
     }
     return self;
@@ -97,9 +95,9 @@
 - (void) buttonClicked:(UIButton *) sender{
     [self removeFromSuperview];
     switch (sender.tag) {
-        case 485:
+        case BTN_CANCEL_TAG:
             break;
-        case 486:
+        case BTN_CHANGE_TAG:
         {
             NSInteger row=[myPickerView selectedRowInComponent:0];
             if (self.block) {

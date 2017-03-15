@@ -134,37 +134,25 @@
     
     
     // 创建序列号输入框
-    tfDeviceId = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, KSCREEN_WIDTH - GPWIDTH(120) - CGRectGetMaxX(lbTemp.frame), GPHEIGHT(150))];
+    tfDeviceId = [GPUtil createTextField];
+    tfDeviceId.frame = CGRectMake(0, 0, KSCREEN_WIDTH - GPWIDTH(120) - CGRectGetMaxX(lbTemp.frame), GPHEIGHT(150));
     tfDeviceId.center = CGPointMake((CGRectGetMaxX(lbDeviceId.frame) + GPWIDTH(39)) + (CGRectGetWidth(tfDeviceId.frame)) / 2, lbSSIDCenter.y);
-    tfDeviceId.layer.borderColor = UICOLOR_RGBA(204, 204, 204, 1.0).CGColor;
     tfDeviceId.keyboardType = UIKeyboardTypeNumberPad;
-    tfDeviceId.layer.borderWidth= 1.0f;
-    tfDeviceId.layer.cornerRadius = 5.0f;
     [self.view addSubview:tfDeviceId];
-    tfDeviceId.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, GPWIDTH(39), 0)];
-    tfDeviceId.leftViewMode = UITextFieldViewModeAlways;
     tfDeviceId.delegate = self;
     tfDeviceId.placeholder = [ChangeLanguage getContentWithKey:@"add2"];
-    [tfDeviceId setValue:UICOLOR_RGBA(128, 128, 128, 1.0) forKeyPath:@"_placeholderLabel.textColor"];
-    tfDeviceId.returnKeyType = UIReturnKeyDone;
     [tfDeviceId becomeFirstResponder];
     [tfDeviceId addTarget:self action:@selector(reformatAsPhoneNumber:) forControlEvents:UIControlEventEditingChanged];
     
     // 密码输入框
-    tfPassword = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, KSCREEN_WIDTH - GPWIDTH(120) - CGRectGetMaxX(lbTemp.frame), GPHEIGHT(150))];
+    tfPassword = [GPUtil createTextField];
+    tfPassword.frame = CGRectMake(0, 0, KSCREEN_WIDTH - GPWIDTH(120) - CGRectGetMaxX(lbTemp.frame), GPHEIGHT(150));
     tfPassword.center = CGPointMake((CGRectGetMaxX(lbPassword.frame) + GPWIDTH(39)) + (CGRectGetWidth(tfPassword.frame)) / 2, lbPasswordCenter.y);
     tfPassword.keyboardType = UIKeyboardTypeASCIICapable;
     tfPassword.secureTextEntry = YES;
-    tfPassword.layer.borderColor = UICOLOR_RGBA(204, 204, 204, 1.0).CGColor;
-    tfPassword.layer.borderWidth= 1.0f;
-    tfPassword.layer.cornerRadius = 5.0f;
     [self.view addSubview:tfPassword];
-    tfPassword.leftView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, GPWIDTH(39), 0)];
-    tfPassword.leftViewMode = UITextFieldViewModeAlways;
     tfPassword.delegate = self;
     tfPassword.placeholder = [ChangeLanguage getContentWithKey:@"add6"];
-    [tfPassword setValue:UICOLOR_RGBA(128, 128, 128, 1.0) forKeyPath:@"_placeholderLabel.textColor"];
-    tfPassword.returnKeyType = UIReturnKeyDone;
     
     // 创建添加按钮
     btnAdd = [UIButton buttonWithType:UIButtonTypeCustom];

@@ -159,7 +159,8 @@
     }
     NSArray *placeholders = @[[ChangeLanguage getContentWithKey:@"password8"], [ChangeLanguage getContentWithKey:@"password9"], [ChangeLanguage getContentWithKey:@"password10"]];
     for (int i=0; i<3; i++) {
-        UITextField *tf = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, KSCREEN_WIDTH - CGRectGetMaxX(lbTemp.frame) - GPWIDTH(120), GPHEIGHT(150))];
+        UITextField *tf = [GPUtil createTextField];
+        tf.frame = CGRectMake(0, 0, KSCREEN_WIDTH - CGRectGetMaxX(lbTemp.frame) - GPWIDTH(120), GPHEIGHT(150));
         if (i == 0) {
             tf.center = CGPointMake((CGRectGetMaxX(lbTemp.frame)) + GPWIDTH(39) + CGRectGetWidth(tf.frame) / 2, lbOriginCenter.y);
             tfOriginpassword = tf;
@@ -176,14 +177,7 @@
         tf.delegate = self;
         tf.keyboardType = UIKeyboardTypeASCIICapable;
         tf.secureTextEntry = YES;
-        tf.layer.borderColor = UICOLOR_RGBA(204, 204, 204, 1.0).CGColor;
-        tf.layer.borderWidth= 1.0f;
-        tf.layer.cornerRadius = 5.0f;
-        tf.leftView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, GPWIDTH(39), 0)];
-        tf.leftViewMode = UITextFieldViewModeAlways;
-        tf.returnKeyType = UIReturnKeyDone;
         tf.placeholder = placeholders[i];
-        [tf setValue:UICOLOR_RGBA(128, 128, 128, 1.0) forKeyPath:@"_placeholderLabel.textColor"];
         [self.view addSubview:tf];
     }
     

@@ -179,7 +179,8 @@
     
     
     // 用户名文本框
-    tfName = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, KSCREEN_WIDTH - GPWIDTH(331), GPHEIGHT(150))];
+    tfName = [GPUtil createTextField];
+    tfName.frame = CGRectMake(0, 0, KSCREEN_WIDTH - GPWIDTH(331), GPHEIGHT(150));
     tfName.center = CGPointMake((CGRectGetMaxX(ImvName.frame) + GPWIDTH(39)) + (CGRectGetWidth(tfName.frame)) / 2, nameImgCenter.y);
     if (_isModifyName){
         tfName.text = _model.deviceName;
@@ -191,18 +192,12 @@
         tfName.text = @"HC暖风机2000";
     }
     tfName.delegate = self;
-    tfName.layer.borderColor = UICOLOR_RGBA(204, 204, 204, 1.0).CGColor;
-    [tfName setValue:UICOLOR_RGBA(128, 128, 128, 1.0) forKeyPath:@"_placeholderLabel.textColor"];
-    tfName.layer.borderWidth= 1.0f;
-    tfName.layer.cornerRadius = 5.0f;
-    tfName.leftView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, POINT_X(39), 0)];
-    tfName.leftViewMode = UITextFieldViewModeAlways;
-    tfName.returnKeyType = UIReturnKeyDone;
     [self.view addSubview:tfName];
     
        
     // 密码文本框
-    tfPassword = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, KSCREEN_WIDTH - GPWIDTH(331), GPHEIGHT(150))];
+    tfPassword = [GPUtil createTextField];
+    tfPassword.frame = CGRectMake(0, 0, KSCREEN_WIDTH - GPWIDTH(331), GPHEIGHT(150));
     tfPassword.center = CGPointMake((CGRectGetMaxX(ImvPassword.frame) + GPWIDTH(39)) + (CGRectGetWidth(tfPassword.frame)) / 2, passwordImgCenter.y);
     tfPassword.keyboardType = UIKeyboardTypeASCIICapable;
     tfPassword.secureTextEntry = YES;
@@ -215,13 +210,6 @@
         ImvPassword.hidden = YES;
     }
     tfPassword.delegate = self;
-    tfPassword.layer.borderColor = UICOLOR_RGBA(204, 204, 204, 1.0).CGColor;
-    [tfPassword setValue:UICOLOR_RGBA(128, 128, 128, 1.0) forKeyPath:@"_placeholderLabel.textColor"];
-    tfPassword.layer.borderWidth= 1.0f;
-    tfPassword.layer.cornerRadius = 5.0f;
-    tfPassword.leftView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, GPWIDTH(39), 0)];
-    tfPassword.leftViewMode = UITextFieldViewModeAlways;
-    tfPassword.returnKeyType = UIReturnKeyDone;
     [self.view addSubview:tfPassword];
     
     // 确认按钮

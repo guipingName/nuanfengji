@@ -196,33 +196,22 @@ typedef NS_ENUM(NSInteger, btnHintView) {
     CGPoint lbPasswordCenter = lbPassword.center;
     
     // 创建SSID输入框
-    UITextField *tfSSID = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, KSCREEN_WIDTH - GPWIDTH(120) - CGRectGetMaxX(lbTemp.frame), GPHEIGHT(150))];// 120 = 81 + 39
+    UITextField *tfSSID = [GPUtil createTextField];
+    tfSSID.frame = CGRectMake(0, 0, KSCREEN_WIDTH - GPWIDTH(120) - CGRectGetMaxX(lbTemp.frame), GPHEIGHT(150));// 120 = 81 + 39
     tfSSID.center = CGPointMake((CGRectGetMaxX(lbSSID.frame) + GPWIDTH(39)) + (CGRectGetWidth(tfSSID.frame)) / 2, lbSSIDCenter.y);
     tfSSID.enabled = NO;
     tfSSID.text = [GPUtil SSID];
-    tfSSID.layer.borderColor = UICOLOR_RGBA(204, 204, 204, 1.0).CGColor;
-    tfSSID.layer.borderWidth= 1.0f;
-    tfSSID.layer.cornerRadius = 5.0f;
     [self.view addSubview:tfSSID];
-    tfSSID.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, GPWIDTH(39), 0)];
-    tfSSID.leftViewMode = UITextFieldViewModeAlways;
-    [tfSSID setValue:UICOLOR_RGBA(128, 128, 128, 1.0) forKeyPath:@"_placeholderLabel.textColor"];
 
     // SSID密码输入框
-    tfPassword = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, KSCREEN_WIDTH - GPWIDTH(120) - CGRectGetMaxX(lbTemp.frame), GPHEIGHT(150))];
+    tfPassword = [GPUtil createTextField];
+    tfPassword.frame = CGRectMake(0, 0, KSCREEN_WIDTH - GPWIDTH(120) - CGRectGetMaxX(lbTemp.frame), GPHEIGHT(150));
     tfPassword.center = CGPointMake((CGRectGetMaxX(lbPassword.frame) + GPWIDTH(39)) + (CGRectGetWidth(tfPassword.frame)) / 2, lbPasswordCenter.y);
     tfPassword.placeholder = [ChangeLanguage getContentWithKey:@"search1"];
     tfPassword.keyboardType = UIKeyboardTypeASCIICapable;
     tfPassword.secureTextEntry = YES;
-    tfPassword.layer.borderColor = UICOLOR_RGBA(204, 204, 204, 1.0).CGColor;
-    tfPassword.layer.borderWidth= 1.0f;
-    tfPassword.layer.cornerRadius = 5.0f;
-    tfPassword.returnKeyType = UIReturnKeyDone;
     [self.view addSubview:tfPassword];
-    tfPassword.leftView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, GPWIDTH(39), 0)];
-    tfPassword.leftViewMode = UITextFieldViewModeAlways;
     tfPassword.delegate = self;
-    [tfPassword setValue:UICOLOR_RGBA(128, 128, 128, 1.0) forKeyPath:@"_placeholderLabel.textColor"];    
     
     // 添加按钮
     btnSearch = [UIButton buttonWithType:UIButtonTypeCustom];

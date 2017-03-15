@@ -44,7 +44,27 @@
  */
 + (NSInteger) nowTimeIntervalSince1970;
 
+/**
+ *  获取设备的SSID
+ *
+ */
 + (NSString *) SSID;
 
+/**
+ *  富文本
+ *
+ *  @param label 需要拆分的字符串
+ *  @param searchString 关键字
+ *  @param firstSize 前半部分的字号
+ *  @param lastSize 后半部分的字号
+ *
+ *  @return CGRect
+ */
 + (CGRect) attributedLabel:(UILabel *) label String:(NSString *) searchString firstSize:(CGFloat) firstSize lastSize:(CGFloat) lastSize;
+
+/**
+ *  创建TextField
+ *
+ */
++ (UITextField *) createTextField;
 @end

@@ -21,6 +21,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
+    [[UINavigationBar appearance] setBarStyle:UIBarStyleBlack];
     [ChangeLanguage initUserLanguage];
     NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     if (![userDef objectForKey:LANGUAGE]) {

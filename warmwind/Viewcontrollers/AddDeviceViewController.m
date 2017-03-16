@@ -25,7 +25,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    self.title = [ChangeLanguage getContentWithKey:@"add0"];
+    self.title = CURRENT_LANGUAGE(@"添加设备");
     [self createViews];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFieldLength:) name:UITextFieldTextDidChangeNotification object:nil];
@@ -76,20 +76,16 @@
 #pragma mark --------------- UIButton点击事件 ----------------
 - (void) btnAddClicked:(UIButton *) sender{
     if (tfDeviceId.text.length == 14) {
-//        if (tfPassword.text.length == 0) {
-//            [GPUtil hintView:self.view message:[ChangeLanguage getContentWithKey:@"search8"]];
-//            return;
-//        }
         BOOL insertState = [[DataBaseManager sharedManager] addDeviceWithDeviceId:(long long)[[tfDeviceId.text stringByReplacingOccurrencesOfString:@" "withString:@""] integerValue] deviceName:@"HC暖风机200" password:tfPassword.text];
         if (insertState) {
             [self.navigationController popToRootViewControllerAnimated:NO];
         }
         else{
-            [GPUtil hintView:self.view message:[ChangeLanguage getContentWithKey:@"search9"]];
+            [GPUtil hintView:self.view message:CURRENT_LANGUAGE(@"设备添加失败")];
         }
     }
     else{
-        [GPUtil hintView:self.view message:[ChangeLanguage getContentWithKey:@"add4"]];
+        [GPUtil hintView:self.view message:CURRENT_LANGUAGE(@"序列号输入有误")];
     }
 }
 
@@ -109,7 +105,7 @@
     CGRect maxRect = CGRectZero;
     // 创建序列号标签
     UILabel *lbDeviceId = [[UILabel alloc] init];
-    lbDeviceId.text = [ChangeLanguage getContentWithKey:@"add1"];
+    lbDeviceId.text = CURRENT_LANGUAGE(@"序列号");
     lbDeviceId.font = [UIFont systemFontOfSize:15];
     CGRect lbDeviceIdR = LABEL_RECT(lbDeviceId.text, 0, 0, 1, 15);
     maxRect = lbDeviceIdR;
@@ -117,7 +113,7 @@
     [self.view addSubview:lbDeviceId];
     // 创建密码标签
     UILabel *lbPassword = [[UILabel alloc] init];
-    lbPassword.text = [ChangeLanguage getContentWithKey:@"search2"];
+    lbPassword.text = CURRENT_LANGUAGE(@"密码");
     lbPassword.font = [UIFont systemFontOfSize:15];
     CGRect lbPasswordR = LABEL_RECT(lbPassword.text, 0, 0, 1, 15);
     if (lbPasswordR.size.width > maxRect.size.width) {
@@ -135,30 +131,30 @@
     
     // 创建序列号输入框
     tfDeviceId = [GPUtil createTextField];
-    tfDeviceId.frame = CGRectMake(0, 0, KSCREEN_WIDTH - GPWIDTH(120) - CGRectGetMaxX(lbTemp.frame), GPHEIGHT(150));
-    tfDeviceId.center = CGPointMake((CGRectGetMaxX(lbDeviceId.frame) + GPWIDTH(39)) + (CGRectGetWidth(tfDeviceId.frame)) / 2, lbSSIDCenter.y);
+    tfDeviceId.frame = CGRectMake(0, 0, KSCREEN_WIDTH - UIWIDTH(120) - CGRectGetMaxX(lbTemp.frame), UIHEIGHT(150));
+    tfDeviceId.center = CGPointMake((CGRectGetMaxX(lbDeviceId.frame) + UIWIDTH(39)) + (CGRectGetWidth(tfDeviceId.frame)) / 2, lbSSIDCenter.y);
     tfDeviceId.keyboardType = UIKeyboardTypeNumberPad;
     [self.view addSubview:tfDeviceId];
     tfDeviceId.delegate = self;
-    tfDeviceId.placeholder = [ChangeLanguage getContentWithKey:@"add2"];
+    tfDeviceId.placeholder = CURRENT_LANGUAGE(@"请输入序列号");
     [tfDeviceId becomeFirstResponder];
     [tfDeviceId addTarget:self action:@selector(reformatAsPhoneNumber:) forControlEvents:UIControlEventEditingChanged];
     
     // 密码输入框
     tfPassword = [GPUtil createTextField];
-    tfPassword.frame = CGRectMake(0, 0, KSCREEN_WIDTH - GPWIDTH(120) - CGRectGetMaxX(lbTemp.frame), GPHEIGHT(150));
-    tfPassword.center = CGPointMake((CGRectGetMaxX(lbPassword.frame) + GPWIDTH(39)) + (CGRectGetWidth(tfPassword.frame)) / 2, lbPasswordCenter.y);
+    tfPassword.frame = CGRectMake(0, 0, KSCREEN_WIDTH - UIWIDTH(120) - CGRectGetMaxX(lbTemp.frame), UIHEIGHT(150));
+    tfPassword.center = CGPointMake((CGRectGetMaxX(lbPassword.frame) + UIWIDTH(39)) + (CGRectGetWidth(tfPassword.frame)) / 2, lbPasswordCenter.y);
     tfPassword.keyboardType = UIKeyboardTypeASCIICapable;
     tfPassword.secureTextEntry = YES;
     [self.view addSubview:tfPassword];
     tfPassword.delegate = self;
-    tfPassword.placeholder = [ChangeLanguage getContentWithKey:@"add6"];
+    tfPassword.placeholder = CURRENT_LANGUAGE(@"请设置密码");
     
     // 创建添加按钮
     btnAdd = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.view addSubview:btnAdd];
-    btnAdd.frame = CGRectMake((KSCREEN_WIDTH - GPWIDTH(1077)) / 2, CGRectGetMaxY(tfPassword.frame) + POINT_Y(114), GPWIDTH(1077), GPHEIGHT(165));
-    [btnAdd setTitle:[ChangeLanguage getContentWithKey:@"add3"] forState:UIControlStateNormal];
+    btnAdd.frame = CGRectMake((KSCREEN_WIDTH - UIWIDTH(1077)) / 2, CGRectGetMaxY(tfPassword.frame) + POINT_Y(114), UIWIDTH(1077), UIHEIGHT(165));
+    [btnAdd setTitle:CURRENT_LANGUAGE(@"确定 ") forState:UIControlStateNormal];
     btnAdd.titleLabel.font = [UIFont systemFontOfSize:20];
     btnAdd.backgroundColor = BTN_ENABLED_BGCOLOR;
     btnAdd.enabled = NO;

@@ -17,10 +17,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.title = [ChangeLanguage getContentWithKey:@"about0"];
+    self.title = CURRENT_LANGUAGE(@"关于");
     //[GPUtil addBgImageViewWithImageName:@"bimar背景" SuperView:self.view];
     
-    UIImageView *Imv = [[UIImageView alloc] initWithFrame:CGRectMake((KSCREEN_WIDTH - GPWIDTH(345)) / 2, POINT_Y(81) + 64, GPWIDTH(345), GPWIDTH(345))];
+    UIImageView *Imv = [[UIImageView alloc] initWithFrame:CGRectMake((KSCREEN_WIDTH - UIWIDTH(345)) / 2, POINT_Y(81) + 64, UIWIDTH(345), UIWIDTH(345))];
     Imv.backgroundColor = THEME_COLOR;
     Imv.layer.cornerRadius = 10;
     Imv.layer.masksToBounds = YES;
@@ -28,7 +28,7 @@
     [self.view addSubview:Imv];
     
     UILabel *lbAppName = [[UILabel alloc] init];
-    lbAppName.text = [ChangeLanguage getContentWithKey:@"title"];
+    lbAppName.text = CURRENT_LANGUAGE(@"暖风机");
     lbAppName.textColor = THEME_COLOR;
     lbAppName.font = [UIFont systemFontOfSize:20];
     CGRect lbAppNameR = LABEL_RECT(lbAppName.text, 0, 0, 1, 20);
@@ -41,7 +41,7 @@
     lbInfo.textColor = THEME_COLOR;
     lbInfo.numberOfLines = 0;
     lbInfo.font = [UIFont systemFontOfSize:16];
-    NSString *textStr = [ChangeLanguage getContentWithKey:@"about1"];
+    NSString *textStr = CURRENT_LANGUAGE(@"bimar暖风机系列秉承科技改变生活的理念，把小产品落地和大数据挖掘完美相结合，为千家万户提供一系列智能舒适、节能环保、价廉物美的智能硬件。");
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:textStr];
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
     [paragraphStyle setLineSpacing:POINT_Y(63)];
@@ -57,7 +57,7 @@
     UIScrollView *scroView = [[UIScrollView alloc] init];
     [scroView addSubview:lbInfo];
     scroView.showsVerticalScrollIndicator = NO;
-    scroView.contentSize = CGSizeMake(KSCREEN_WIDTH - GPWIDTH(198), lbInfoR.size.height);
+    scroView.contentSize = CGSizeMake(KSCREEN_WIDTH - UIWIDTH(198), lbInfoR.size.height);
     [self.view addSubview:scroView];
     
     UIView *telQQbackView = [[UIView alloc] init];
@@ -107,7 +107,7 @@
     lbTelePhone.frame = CGRectMake((KSCREEN_WIDTH - lbTelePhoneR.size.width - lbQQR.size.width - POINT_X(30)) / 2, 0, lbTelePhoneR.size.width, lbTelePhoneR.size.height);
     lbQQ.frame = CGRectMake(CGRectGetMaxX(lbTelePhone.frame) + POINT_X(30), 0, lbQQR.size.width, lbQQR.size.height);
     
-    scroView.frame = CGRectMake(POINT_X(99), CGRectGetMaxY(lbAppName.frame) + POINT_Y(90), KSCREEN_WIDTH - GPWIDTH(198), CGRectGetMinY(telQQbackView.frame) - POINT_Y(150) - CGRectGetMaxY(lbAppName.frame));
+    scroView.frame = CGRectMake(POINT_X(99), CGRectGetMaxY(lbAppName.frame) + POINT_Y(90), KSCREEN_WIDTH - UIWIDTH(198), CGRectGetMinY(telQQbackView.frame) - POINT_Y(150) - CGRectGetMaxY(lbAppName.frame));
     
 }
 

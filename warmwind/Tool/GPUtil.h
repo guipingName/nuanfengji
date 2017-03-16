@@ -54,7 +54,7 @@
  *  富文本
  *
  *  @param label 需要拆分的字符串
- *  @param searchString 关键字
+ *  @param searchString 查找的关键字
  *  @param firstSize 前半部分的字号
  *  @param lastSize 后半部分的字号
  *
@@ -67,4 +67,26 @@
  *
  */
 + (UITextField *) createTextField;
+
+/**
+ *  十六进制颜色
+ *
+ *  @param hexValue 十六进制颜色
+ *
+ *  @return UIColor对象
+ */
++ (UIColor *) colorWithHex:(int)hexValue;
+
+/**
+ *  十六进制颜色
+ *
+ *  @param hexValue 十六进制颜色
+ *  @param alpha 透明度
+ *
+ *  @return UIColor对象
+ */
++ (UIColor *) colorWithHex:(int)hexValue alpha:(CGFloat)alpha;
+
+
+
 @end

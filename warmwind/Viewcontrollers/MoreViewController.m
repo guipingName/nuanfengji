@@ -27,7 +27,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 
-    self.title = [ChangeLanguage getContentWithKey:@"more0"];
+    self.title = CURRENT_LANGUAGE(@"更多");
     [GPUtil addBgImageViewWithImageName:@"bimar背景" SuperView:self.view];
     self.automaticallyAdjustsScrollViewInsets = NO;
     myTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, KSCREEN_WIDTH, KSCREEN_HEIGHT - 64)];
@@ -40,7 +40,7 @@
     [myTableView registerClass:[LeftVCTableViewCell class] forCellReuseIdentifier:LEFTCELL];
     myTableView.rowHeight = POINT_Y(231);
     imageNamesArray = @[@"设备信息", @"远程重启", @"bimar摄氏度"];
-    titleArray = @[[ChangeLanguage getContentWithKey:@"more1"], [ChangeLanguage getContentWithKey:@"more2"]];
+    titleArray = @[CURRENT_LANGUAGE(@"设备信息"), CURRENT_LANGUAGE(@"远程重启")];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -84,7 +84,7 @@
         [self.navigationController pushViewController:deviceInfoVC animated:YES];
     }
     else if (indexPath.row == 1) {
-        [GPUtil hintView:self.view message:[ChangeLanguage getContentWithKey:@"more3"]];
+        [GPUtil hintView:self.view message:CURRENT_LANGUAGE(@"该功能无法使用")];
     }
     else{
         

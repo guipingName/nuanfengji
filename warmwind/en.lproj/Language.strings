@@ -5,85 +5,78 @@
  Created by guiping on 17/3/3.
  Copyright © 2017年 galaxyWind. All rights reserved.
  */
+"暖风机" = "bimar";
 
-"title" = "bimar";
-"button0" = "NickName";
-"button1" = "Password";
-"button2" = "Delete";
-"button3" = "New Device";
-"button4" = "Old Device";
-"button5" = "Cancel";
+"搜索设备" = "Search Device";
 
-"search0" = "Search Device";
-"search1" = "Wi-Fi Password";
-"search2" = "Password";
-"search3" = "Search";
-"search4" = "Add Device";
-"search5" = "Modify NickName";
-"search6" = "Modify Password";
-"search7" = "Please Input DeviceName";
-"search8" = "Please Input Password";
-"search9" = "Failure";
-"search10" = "Failure";
-"search11" = "It'll take five minutes to look for AC Socket.Cancel and Start again?";
-"search12" = "Wait";
-"search13" = "OK";
-"search14" = "Not Connected Wi-Fi";
-"search15" = "Success";
-"search16" = "Modify";
-"search17" = "Device Name";
-"search18" = "New NickName";
+"修改昵称" = "NickName";
+"修改密码" = "Password";
+"删除" = "Delete";
 
-"password1" = "Origin";
-"password2" = "New";
-"password3" = "Confirm";
-"password4" = "Origin Error";
-"password5" = " Passwords Not Match";
-"password6" = "Please Input Password";
-"password7" = "Modify";
-"password8" = "Origin Password";
-"password9" = "New Password";
-"password10" = "Confirm Password";
+"新设备" = "New Device";
+"已配置过的设备" = "Old Device";
+"取消" = "Cancel";
 
-"add0" = "Add Device";
-"add1" = "DeviceId";
-"add2" = "Please input DeviceId";
-"add3" = "Add";
-"add4" = "Error DeviceId";
-"add5" = "Please input NickName";
-"add6" = "Please input Password";
+"路由器Wi-Fi密码" = "Wi-Fi Password";
+"开始搜索" = "Search";
+"等待" = "Wait";
+"好的" = "OK";
 
-"more0" = "More";
-"more1" = "Device Infomation";
-"more2" = "Remote Restart";
-"more3" = "Can't use";
+"密码" = "Password";
+"请设置新的昵称" = "New NickName";
+"请设置设备名称" = "Device Name";
+"请设置密码" = "Please Input Password";
+"确定 " = "Add Device";
+"修改" = "Modify";
+"修改昵称 " = "Modify NickName";
+"修改成功" = "Success";
+"修改失败" = "Failure";
+"请设置用户名" = "Please Input DeviceName";
+"设备添加失败" = "Failure";
 
-"deviceInfo0" = " System Overview";
-"deviceInfo1" = "Firmware Version";
-"deviceInfo2" = "Hardware Version";
-"deviceInfo3" = "Upgrade software Version";
-"deviceInfo4" = " Wireless Network";
-"deviceInfo5" = "SSID";
-"deviceInfo6" = " Advanced Information";
-"deviceInfo7" = "The Gateway Channel";
-"deviceInfo8" = "Phone Connected";
+"修改密码 " = "Modify Password";
+"旧密码错误" = "Origin Error";
+"密码不一致" = " Passwords Not Match";
 
+"旧密码" = "Origin";
+"新密码" = "New";
+"确认密码" = "Confirm";
+"请输入旧密码" = "Origin Password";
+"请输入新密码" = "New Password";
+"请再次输入新密码" = "Confirm Password";
+"请输入序列号" = "Please input DeviceId";
+"添加设备" = "Add Device";
+"序列号输入有误" = "Error DeviceId";
+"序列号" = "DeviceId";
+"更多" = "More";
+"设备信息" = "Device Infomation";
+"远程重启" = "Remote Restart";
+"该功能无法使用" = "Can't use";
+"关于我们" = "About Us";
+"设置" = "Settings";
+"关于" = "About";
+"语言" = "Language";
+"确定" = "Change";
 
-"deviceState0" = "offLine";
-"deviceState1" = "working";
-"deviceState2" = "OFF";
+"离线" = "OFF";
+"在线" = "working";
+"待机" = "OFF";
+"小火" = "SmallFire";
+"中火" = "MiddleFire";
+"大火" = "BigFire";
+"防霜冻" = "PreventFrost";
 
-"mode0" = "SmallFire";
-"mode1" = "MiddleFire";
-"mode2" = "BigFire";
-"mode3" = "PreventFrost";
+"未连接Wi-Fi" = "Not Connected Wi-Fi";
+" 系统信息" = " System Overview";
+"固件版本" = "Firmware Version";
+"硬件版本" = "Hardware Version";
+"升级包版本" = "Upgrade software Version";
+" Wi-Fi信息" = " Wireless Network";
+"无线名称" = "SSID";
+" 高级信息" = " Advanced Information";
+"当前网关信道" = "The Gateway Channel";
+"已连接手机数量" = "Phone Connected";
 
-"leftvc0" = "About Us";
-"leftvc1" = "Settings";
-
-"about0" = "About";
-"about1" = "Upholding the concept of technology change life,bimar series manage to make a perfect combination of small practical product and big data service, which provides a series of intelligent and green hardware with affordable price.";
-
-"language0" = "Language";
-"language1" = "Change";
+"搜索过程大概需要5秒，取消并重新开始？" = "It'll take five minutes to look for AC Socket.Cancel and Start again?";
+"bimar暖风机系列秉承科技改变生活的理念，把小产品落地和大数据挖掘完美相结合，为千家万户提供一系列智能舒适、节能环保、价廉物美的智能硬件。" = "Upholding the concept of technology change life,bimar series manage to make a perfect combination of small practical product and big data service, which provides a series of intelligent and green hardware with affordable price.";
 

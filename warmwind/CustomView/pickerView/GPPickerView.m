@@ -60,7 +60,7 @@
     if (self = [super initWithFrame:frame]) {
         self.backgroundColor = [UIColor whiteColor];
         UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, tempy(75), self.bounds.size.width, 30)];
-        titleLabel.text = [ChangeLanguage getContentWithKey:@"language0"];
+        titleLabel.text = CURRENT_LANGUAGE(@"语言");
         titleLabel.font = [UIFont systemFontOfSize:20];
         titleLabel.textAlignment = NSTextAlignmentCenter;
         titleLabel.textColor = THEME_COLOR;
@@ -75,7 +75,7 @@
         returnStringArray = @[@"en", @"zh-Hans", @"Italian"];
         imageNamesArray = @[@"bimar英语", @"bimar汉语", @"bimar意大利语"];
         
-        NSArray *buttonNames = @[[ChangeLanguage getContentWithKey:@"button5"], [ChangeLanguage getContentWithKey:@"language1"]];
+        NSArray *buttonNames = @[CURRENT_LANGUAGE(@"取消"), CURRENT_LANGUAGE(@"确定")];
         for (int i=0; i<2; i++) {
             UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
             button.frame = CGRectMake(self.bounds.size.width * i / 2, self.bounds.size.height - tempy(171), self.bounds.size.width / 2, tempy(171));

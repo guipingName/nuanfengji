@@ -69,7 +69,11 @@ static NSBundle *bundle = nil;
 }
 
 + (NSString *) getContentWithKey:(NSString *) key{
-    return [[self bundle] localizedStringForKey:key value:nil table:@"Language"];
+    NSString *str = [[self bundle] localizedStringForKey:key value:nil table:@"Language"];
+    if (str) {
+        return str;
+    }
+    return key;
 }
 
 @end

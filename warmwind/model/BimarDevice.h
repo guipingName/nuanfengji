@@ -151,7 +151,7 @@ typedef NS_ENUM(NSInteger, BimarWorkState) {
 -(BOOL) modifyPasswordWithPassword:(NSString *) password;
 
 /**
- *  修改设备名称
+ *  修改设备信息
  *
  *  @return 成功返回YES
  */

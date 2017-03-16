@@ -37,12 +37,12 @@
     dataArray = [NSArray array];
     imageNamesArray = @[@"关于", @"设置"];
     
-    myTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, POINT_Y(644), GPWIDTH(759), GPHEIGHT(342))];
+    myTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, POINT_Y(644), UIWIDTH(759), UIHEIGHT(342))];
     [self.view addSubview:myTableView];
     myTableView.backgroundColor = [UIColor clearColor];
     myTableView.dataSource = self;
     myTableView.delegate = self;
-    myTableView.rowHeight = GPHEIGHT(171);
+    myTableView.rowHeight = UIHEIGHT(171);
     [myTableView registerClass:[LeftVCTableViewCell class] forCellReuseIdentifier:LEFTCELL];
     [self createImageView];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeLanguage:) name:LANGUAGE_NOTIFICATION object:nil];
@@ -52,18 +52,18 @@
 }
 
 - (void) changeLanguage:(NSNotification *) sender{
-    lbTitle.text = [ChangeLanguage getContentWithKey:@"title"];
+    lbTitle.text = CURRENT_LANGUAGE(@"暖风机");
     CGRect labelR = LABEL_RECT(lbTitle.text, 0, 0, 1, 15);
     lbTitle.frame = CGRectMake((POINT_X(759) - labelR.size.width) / 2, CGRectGetMaxY(imageView.frame) + POINT_Y(30), labelR.size.width, labelR.size.height);
-    dataArray = @[[ChangeLanguage getContentWithKey:@"leftvc0"], [ChangeLanguage getContentWithKey:@"leftvc1"]];
+    dataArray = @[CURRENT_LANGUAGE(@"关于我们"), CURRENT_LANGUAGE(@"设置")];
     [myTableView reloadData];
 }
 
 - (void) createImageView{
     imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"左侧边栏logo"]];
     imageView.backgroundColor = THEME_COLOR;
-    imageView.frame = CGRectMake((POINT_X(759) - GPHEIGHT(180)) / 2, POINT_Y(192), GPHEIGHT(180), GPHEIGHT(180));
-    imageView.layer.cornerRadius = GPHEIGHT(90);
+    imageView.frame = CGRectMake((POINT_X(759) - UIHEIGHT(180)) / 2, POINT_Y(192), UIHEIGHT(180), UIHEIGHT(180));
+    imageView.layer.cornerRadius = UIHEIGHT(90);
     imageView.layer.borderColor = [UIColor whiteColor].CGColor;
     imageView.layer.borderWidth = 2;
     imageView.layer.masksToBounds = YES;

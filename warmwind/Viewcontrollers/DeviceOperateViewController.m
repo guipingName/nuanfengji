@@ -101,18 +101,17 @@ typedef NS_ENUM(NSInteger, BimarOperateButton) {
         // 关机状态
         if (_model.temperatureFlag) {
             lbIndoorTemperature.text = [NSString stringWithFormat:@"%ld℃",(long)_model.indoorCentigrade];
-            lbTemperature.text = [ChangeLanguage getContentWithKey:@"deviceState2"];
         }
         else{
             lbIndoorTemperature.text = [NSString stringWithFormat:@"%ld℉",(long)_model.indoorFahrenheit];
-            lbTemperature.text = [ChangeLanguage getContentWithKey:@"deviceState2"];
         }
+        lbTemperature.text = CURRENT_LANGUAGE(@"待机");
         [self offState];
         [self offWithButton];
     }
     else{
         // 离线
-        lbTemperature.text = [ChangeLanguage getContentWithKey:@"deviceState0"];
+        lbTemperature.text = CURRENT_LANGUAGE(@"离线");
         lbIndoorTemperature.text = @"";
         [self offState];
         [self offWithButton];
@@ -125,14 +124,14 @@ typedef NS_ENUM(NSInteger, BimarOperateButton) {
         tempFlag = @"℉";
     }
     CGRect lbIndoorTemperatureRect = [GPUtil attributedLabel:lbIndoorTemperature String:tempFlag firstSize:17 lastSize:8.5];
-    lbIndoorTemperature.frame = CGRectMake(CGRectGetMaxX(innerImageView.frame) + GPWIDTH(24), CGRectGetMaxY(innerImageView.frame) - lbIndoorTemperatureRect.size.height + 3, lbIndoorTemperatureRect.size.width, lbIndoorTemperatureRect.size.height);
+    lbIndoorTemperature.frame = CGRectMake(CGRectGetMaxX(innerImageView.frame) + UIWIDTH(24), CGRectGetMaxY(innerImageView.frame) - lbIndoorTemperatureRect.size.height + 3, lbIndoorTemperatureRect.size.width, lbIndoorTemperatureRect.size.height);
     
     if (_model.workState == BimarWorkStateOnMode) {
         // 运行模式图片
         UIImage *imagea = [UIImage imageNamed:modeImgNamesArray[_model.workMode]];
         modeImageView.image = imagea;
         //modeImageView.frame = CGRectMake((KSCREEN_WIDTH - imagea.size.width) / 2, CGRectGetMaxY(lbTemperature.frame) + POINT_Y(50), imagea.size.width, imagea.size.height);
-        modeImageView.frame = CGRectMake((KSCREEN_WIDTH - imagea.size.width) / 2, POINT_Y(959), GPHEIGHT(150), GPHEIGHT(150));
+        modeImageView.frame = CGRectMake((KSCREEN_WIDTH - imagea.size.width) / 2, POINT_Y(959), UIHEIGHT(150), UIHEIGHT(150));
         switch (_model.autoTime) {
             case BimarAutoOffTimeNone:
                 myCircleView.hidden = YES;
@@ -206,7 +205,7 @@ typedef NS_ENUM(NSInteger, BimarOperateButton) {
 // 关机状态UI隐藏
 - (void) offWithButton{
     myCircleView.hidden = YES;
-    lbTemperature.text = [ChangeLanguage getContentWithKey:@"deviceState2"];
+    lbTemperature.text = CURRENT_LANGUAGE(@"待机");
     lbTemperature.font = [UIFont systemFontOfSize:80];
     CGRect temperatureLabelRect = LABEL_RECT(lbTemperature.text, 0, 0, 1, 80);
     lbTemperature.frame = CGRectMake((KSCREEN_WIDTH - temperatureLabelRect.size.width) / 2, POINT_Y(588), temperatureLabelRect.size.width, temperatureLabelRect.size.height);
@@ -401,7 +400,7 @@ typedef NS_ENUM(NSInteger, BimarOperateButton) {
     innerImageView = [[UIImageView alloc] init];
     UIImage *innerImage = [UIImage imageNamed:@"室温144px"];
     innerImageView.image = innerImage;
-    innerImageView.frame = CGRectMake(POINT_X(51), POINT_Y(90) + 64, GPHEIGHT(92), GPHEIGHT(92));
+    innerImageView.frame = CGRectMake(POINT_X(51), POINT_Y(90) + 64, UIHEIGHT(92), UIHEIGHT(92));
     //innerImageView.frame = CGRectMake(myX(51), myY(90), innerImage.size.width, innerImage.size.height);
     [self.view addSubview:innerImageView];
     
@@ -417,7 +416,7 @@ typedef NS_ENUM(NSInteger, BimarOperateButton) {
     //lbTemperature.backgroundColor = [UIColor redColor];
     
     // 添加定时器进度条
-    myCircleView = [[CircleView alloc] initWithFrame:CGRectMake(KSCREEN_WIDTH - POINT_X(51) - POINT_Y(206), POINT_Y(50) + 64, GPHEIGHT(206), GPHEIGHT(206))];
+    myCircleView = [[CircleView alloc] initWithFrame:CGRectMake(KSCREEN_WIDTH - POINT_X(51) - POINT_Y(206), POINT_Y(50) + 64, UIHEIGHT(206), UIHEIGHT(206))];
     myCircleView.hidden = YES;
     [self.view addSubview:myCircleView];
     timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(decreseTime:) userInfo:nil repeats:YES];
@@ -434,7 +433,7 @@ typedef NS_ENUM(NSInteger, BimarOperateButton) {
     for (int i=0; i<BimarOperateButtonMAX; i++) {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         [self.view addSubview:button];
-        button.frame = CGRectMake(POINT_X(33) +(i % 3) * POINT_X(399) , POINT_Y(1226) + (i / 3) * GPHEIGHT(346), GPWIDTH(378), GPHEIGHT(316));
+        button.frame = CGRectMake(POINT_X(33) +(i % 3) * POINT_X(399) , POINT_Y(1226) + (i / 3) * UIHEIGHT(346), UIWIDTH(378), UIHEIGHT(316));
         button.backgroundColor = UICOLOR_RGBA(255, 255, 255, 0.25);
         button.layer.cornerRadius = 5;
         button.layer.masksToBounds = YES;

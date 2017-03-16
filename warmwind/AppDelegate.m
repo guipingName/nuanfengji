@@ -35,7 +35,7 @@
     MMDrawerController *drawerController = [[MMDrawerController alloc] initWithCenterViewController:nav leftDrawerViewController:leftVC];
     [drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeNone];
     [drawerController setCloseDrawerGestureModeMask:MMCloseDrawerGestureModeAll];
-    [drawerController setMaximumLeftDrawerWidth:GPWIDTH(759)];
+    [drawerController setMaximumLeftDrawerWidth:UIWIDTH(759)];
     
     self.window.rootViewController = drawerController;
     return YES;

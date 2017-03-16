@@ -48,19 +48,19 @@
         {
             switch (model.workMode) {
                 case BimarWorkModeSmallFire:
-                    lbState.text = [ChangeLanguage getContentWithKey:@"mode0"];
+                    lbState.text = CURRENT_LANGUAGE(@"小火");
                     break;
                 case BimarWorkModeMiddleFire:
-                    lbState.text = [ChangeLanguage getContentWithKey:@"mode1"];
+                    lbState.text = CURRENT_LANGUAGE(@"中火");
                     break;
                 case BimarWorkModeHighFire:
-                    lbState.text = [ChangeLanguage getContentWithKey:@"mode2"];
+                    lbState.text = CURRENT_LANGUAGE(@"大火");
                     break;
                 case BimarWorkModePreventFrost:
-                    lbState.text = [ChangeLanguage getContentWithKey:@"mode3"];
+                    lbState.text = CURRENT_LANGUAGE(@"防霜冻");
                     break;
                 default:
-                    lbState.text = [ChangeLanguage getContentWithKey:@"deviceState1"];
+                    lbState.text = CURRENT_LANGUAGE(@"在线");
                     break;
             }
             if (model.temperatureFlag) {
@@ -75,13 +75,13 @@
         }
         case BimarWorkStateOffMode:
         {
-            lbState.text = [ChangeLanguage getContentWithKey:@"deviceState0"];
+            lbState.text = CURRENT_LANGUAGE(@"离线");
             lbState.textColor = UICOLOR_RGBA(255, 0, 0, 1.0);
             break;
         }
         case BimarWorkStateStandbyMode:
         {
-            lbState.text = [ChangeLanguage getContentWithKey:@"deviceState2"];
+            lbState.text = CURRENT_LANGUAGE(@"待机");
             if (model.temperatureFlag) {
                 lbTemperature.text = [NSString stringWithFormat:@"%ld℃",(long)model.indoorCentigrade];
             }

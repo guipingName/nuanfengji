@@ -25,7 +25,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.title = [ChangeLanguage getContentWithKey:@"more1"];
+    self.title = CURRENT_LANGUAGE(@"设备信息");
     //[GPUtil addBgImageViewWithImageName:@"bimar背景" SuperView:self.view];
     self.automaticallyAdjustsScrollViewInsets = NO;
     
@@ -52,11 +52,11 @@
     if (!titleArray) {
         titleArray = [NSMutableArray array];
     }
-    NSArray *systemInfo = @[[ChangeLanguage getContentWithKey:@"add1"], [ChangeLanguage getContentWithKey:@"deviceInfo1"], [ChangeLanguage getContentWithKey:@"deviceInfo2"], [ChangeLanguage getContentWithKey:@"deviceInfo3"]];
+    NSArray *systemInfo = @[CURRENT_LANGUAGE(@"序列号"), CURRENT_LANGUAGE(@"固件版本"), CURRENT_LANGUAGE(@"硬件版本"), CURRENT_LANGUAGE(@"升级包版本")];
     NSArray *systemInfo1 = @[[GPUtil splitString:[NSString stringWithFormat:@"%lu",_model.deviceId] splitNum:4], @"4.0.0(svn 209)", @"1.0.0", [[NSBundle mainBundle] infoDictionary][@"CFBundleShortVersionString"]];
-    NSArray *WiFi = @[[ChangeLanguage getContentWithKey:@"deviceInfo5"]];
+    NSArray *WiFi = @[CURRENT_LANGUAGE(@"无线名称")];
     NSArray *WiFi1 = @[[GPUtil SSID]];
-    NSArray *high = @[[ChangeLanguage getContentWithKey:@"deviceInfo7"], [ChangeLanguage getContentWithKey:@"deviceInfo8"]];
+    NSArray *high = @[CURRENT_LANGUAGE(@"当前网关信道"), CURRENT_LANGUAGE(@"已连接手机数量")];
     NSArray *high1 = @[@"5", @"2"];
     titleArray = @[systemInfo, WiFi, high];
     titleInfoArray = @[systemInfo1, WiFi1, high1];
@@ -74,7 +74,7 @@
 }
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    NSArray *titles= @[[ChangeLanguage getContentWithKey:@"deviceInfo0"], [ChangeLanguage getContentWithKey:@"deviceInfo4"], [ChangeLanguage getContentWithKey:@"deviceInfo6"]];
+    NSArray *titles= @[CURRENT_LANGUAGE(@" 系统信息"), CURRENT_LANGUAGE(@" Wi-Fi信息"), CURRENT_LANGUAGE(@" 高级信息")];
     UILabel *label = [[UILabel alloc] init];
     label.backgroundColor = UICOLOR_RGBA(230, 231, 232, 1.0);
     label.text = titles[section];
@@ -97,15 +97,15 @@
 
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return GPHEIGHT(150);
+    return UIHEIGHT(150);
 }
 
 - (CGFloat) tableView:(UITableView *)tableView estimatedHeightForHeaderInSection:(NSInteger)section{
-    return GPHEIGHT(150);
+    return UIHEIGHT(150);
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    return 0.1;
+    return 0.1f;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{

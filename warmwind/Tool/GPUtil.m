@@ -65,7 +65,7 @@
         return str;
     }
     else{
-        return [ChangeLanguage getContentWithKey:@"search14"];
+        return CURRENT_LANGUAGE(@"未连接Wi-Fi");
     }
 }
 
@@ -96,9 +96,21 @@
     tf.layer.borderWidth= 1.0f;
     tf.layer.cornerRadius = 5.0f;
     tf.returnKeyType = UIReturnKeyDone;
-    tf.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, GPWIDTH(39), 0)];
+    tf.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, UIWIDTH(39), 0)];
     tf.leftViewMode = UITextFieldViewModeAlways;
     [tf setValue:UICOLOR_RGBA(128, 128, 128, 1.0) forKeyPath:@"_placeholderLabel.textColor"];
     return tf;
 }
+
++ (UIColor *) colorWithHex:(int)hexValue alpha:(CGFloat)alpha{
+    return [UIColor colorWithRed:((float)((hexValue & 0xFF0000) >> 16))/255.0
+                           green:((float)((hexValue & 0xFF00) >> 8))/255.0
+                            blue:((float)(hexValue & 0xFF))/255.0
+                           alpha:alpha];
+}
+
++ (UIColor *) colorWithHex:(int)hexValue{
+    return [self colorWithHex:hexValue alpha:1.0];
+}
+
 @end

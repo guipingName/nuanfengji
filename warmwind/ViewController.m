@@ -50,7 +50,7 @@ typedef NS_ENUM(NSInteger, DeviceInfoButon) {
     [self addNavigationItemImageName:@"添加" target:self action:@selector(addDevice:) isLeft:NO];
     
     // 图片
-    Imv = [[UIImageView alloc] initWithFrame:CGRectMake(0, 64, KSCREEN_WIDTH, GPHEIGHT(620))];
+    Imv = [[UIImageView alloc] initWithFrame:CGRectMake(0, 64, KSCREEN_WIDTH, UIHEIGHT(620))];
     Imv.image = [UIImage imageNamed:@"banner_default"];
     [self.view addSubview:Imv];
     
@@ -60,6 +60,7 @@ typedef NS_ENUM(NSInteger, DeviceInfoButon) {
     [self createDeviceListView];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeLanguage) name:LANGUAGE_NOTIFICATION object:nil];
+    
     
 }
 
@@ -92,8 +93,8 @@ typedef NS_ENUM(NSInteger, DeviceInfoButon) {
 
 #pragma mark --------------- 界面更新 ----------------
 - (void) changeLanguage{
-    self.title = [ChangeLanguage getContentWithKey:@"title"];
-    searchView.title = [ChangeLanguage getContentWithKey:@"search0"];
+    self.title = CURRENT_LANGUAGE(@"暖风机");
+    searchView.title = CURRENT_LANGUAGE(@"搜索设备");
     [tbviewDeviceList reloadData];
 }
 
@@ -186,7 +187,7 @@ typedef NS_ENUM(NSInteger, DeviceInfoButon) {
     [tbviewDeviceList registerClass:[DeviceListTableViewCell class] forCellReuseIdentifier:DEVICELISTCELL];
     tbviewDeviceList.dataSource = self;
     tbviewDeviceList.delegate = self;
-    tbviewDeviceList.rowHeight = GPHEIGHT(231);
+    tbviewDeviceList.rowHeight = UIHEIGHT(231);
     tbviewDeviceList.separatorStyle = UITableViewCellSeparatorStyleNone;
 }
 
@@ -201,26 +202,26 @@ typedef NS_ENUM(NSInteger, DeviceInfoButon) {
     [hintView addGestureRecognizer:tap];
     hintView.userInteractionEnabled = YES;
     
-    UIView *opView = [[UIView alloc] initWithFrame:CGRectMake(0, hintView.bounds.size.height - GPHEIGHT(375), hintView.bounds.size.width, GPHEIGHT(375))];
+    UIView *opView = [[UIView alloc] initWithFrame:CGRectMake(0, hintView.bounds.size.height - UIHEIGHT(375), hintView.bounds.size.width, UIHEIGHT(375))];
     opView.backgroundColor = [UIColor whiteColor];
     [hintView addSubview:opView];
     
-    UILabel *idLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, opView.bounds.size.width, GPHEIGHT(114))];
+    UILabel *idLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, opView.bounds.size.width, UIHEIGHT(114))];
     [opView addSubview:idLabel];
     idLabel.textAlignment = NSTextAlignmentCenter;
     idLabel.text = [GPUtil splitString:[NSString stringWithFormat:@"%lu",model.deviceId] splitNum:4];
     idLabel.textColor = UICOLOR_RGBA(128, 128, 128, 1.0);
     idLabel.font = [UIFont systemFontOfSize:15];
     
-    UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, POINT_Y(114), opView.bounds.size.width, GPHEIGHT(2))];
+    UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, POINT_Y(114), opView.bounds.size.width, UIHEIGHT(2))];
     lineView.backgroundColor = UICOLOR_RGBA(209, 209, 209, 1.0);
     [opView addSubview:lineView];
     NSArray *buttonImgNames = @[@"修改昵称", @"修改密码", @"删除"];
-    NSArray *names = @[[ChangeLanguage getContentWithKey:@"button0"], [ChangeLanguage getContentWithKey:@"button1"], [ChangeLanguage getContentWithKey:@"button2"]];
+    NSArray *names = @[CURRENT_LANGUAGE(@"修改昵称"), CURRENT_LANGUAGE(@"修改密码"), CURRENT_LANGUAGE(@"删除")];
     for (int i=0; i<DeviceInfoButonMAX; i++) {
         UIButton *button = [GPButton buttonWithType:UIButtonTypeCustom];
         [opView addSubview:button];
-        button.frame = CGRectMake(POINT_X(70) + GPWIDTH(270) * i, POINT_Y(150), GPWIDTH(250), GPHEIGHT(150));
+        button.frame = CGRectMake(POINT_X(70) + UIWIDTH(270) * i, POINT_Y(150), UIWIDTH(250), UIHEIGHT(150));
         [button setTitle:names[i] forState:UIControlStateNormal];
         [button setImage:[UIImage imageNamed:buttonImgNames[i]] forState:UIControlStateNormal];
         button.titleLabel.font = [UIFont systemFontOfSize: 13.0];
@@ -236,15 +237,16 @@ typedef NS_ENUM(NSInteger, DeviceInfoButon) {
     [self.mm_drawerController toggleDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
 }
 
+
 - (void) addDevice:(UIBarButtonItem *) sender{
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-    UIAlertAction *new = [UIAlertAction actionWithTitle:[ChangeLanguage getContentWithKey:@"button3"] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertAction *new = [UIAlertAction actionWithTitle:CURRENT_LANGUAGE(@"新设备") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [self.navigationController pushViewController:[[SearchDeviceViewController alloc] init] animated:YES];
     }];
-    UIAlertAction *old = [UIAlertAction actionWithTitle:[ChangeLanguage getContentWithKey:@"button4"] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertAction *old = [UIAlertAction actionWithTitle:CURRENT_LANGUAGE(@"已配置过的设备") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [self.navigationController pushViewController:[[AddDeviceViewController alloc] init] animated:YES];
     }];
-    UIAlertAction *cancel = [UIAlertAction actionWithTitle:[ChangeLanguage getContentWithKey:@"button5"] style:UIAlertActionStyleCancel handler:nil];
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:CURRENT_LANGUAGE(@"取消") style:UIAlertActionStyleCancel handler:nil];
     [alertController addAction:new];
     [alertController addAction:old];
     [alertController addAction:cancel];

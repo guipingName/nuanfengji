@@ -33,7 +33,7 @@ typedef NS_ENUM(NSInteger, SettingType) {
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    self.title = [ChangeLanguage getContentWithKey:@"leftvc1"];
+    self.title = CURRENT_LANGUAGE(@"设置");
     [GPUtil addBgImageViewWithImageName:@"bimar背景" SuperView:self.view];
     userDefaults = [NSUserDefaults standardUserDefaults];
     self.automaticallyAdjustsScrollViewInsets = NO;
@@ -124,7 +124,7 @@ typedef NS_ENUM(NSInteger, SettingType) {
             }
             if (![newLanguage isEqualToString:[ChangeLanguage userLanguage]]) {
                 [ChangeLanguage setUserlanguage:newLanguage];
-                self.title = [ChangeLanguage getContentWithKey:@"leftvc1"];
+                self.title = CURRENT_LANGUAGE(@"设置");
                 [[NSNotificationCenter defaultCenter] postNotificationName:LANGUAGE_NOTIFICATION object:nil];
             }
         };

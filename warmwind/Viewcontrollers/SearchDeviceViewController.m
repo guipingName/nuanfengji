@@ -35,7 +35,7 @@ typedef NS_ENUM(NSInteger, btnHintView) {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.title = [ChangeLanguage getContentWithKey:@"search0"];
+    self.title = CURRENT_LANGUAGE(@"搜索设备");
     
     [self creatViews];
 }
@@ -179,7 +179,7 @@ typedef NS_ENUM(NSInteger, btnHintView) {
     
     // 创建SSID密码标签
     UILabel *lbPassword = [[UILabel alloc] init];
-    lbPassword.text = [ChangeLanguage getContentWithKey:@"search2"];
+    lbPassword.text = CURRENT_LANGUAGE(@"密码");
     lbPassword.font = [UIFont systemFontOfSize:15];
     CGRect lbPasswordR = LABEL_RECT(lbPassword.text, 0, 0, 1, 15);
     if (lbPasswordR.size.width > maxRect.size.width) {
@@ -197,17 +197,17 @@ typedef NS_ENUM(NSInteger, btnHintView) {
     
     // 创建SSID输入框
     UITextField *tfSSID = [GPUtil createTextField];
-    tfSSID.frame = CGRectMake(0, 0, KSCREEN_WIDTH - GPWIDTH(120) - CGRectGetMaxX(lbTemp.frame), GPHEIGHT(150));// 120 = 81 + 39
-    tfSSID.center = CGPointMake((CGRectGetMaxX(lbSSID.frame) + GPWIDTH(39)) + (CGRectGetWidth(tfSSID.frame)) / 2, lbSSIDCenter.y);
+    tfSSID.frame = CGRectMake(0, 0, KSCREEN_WIDTH - UIWIDTH(120) - CGRectGetMaxX(lbTemp.frame), UIHEIGHT(150));// 120 = 81 + 39
+    tfSSID.center = CGPointMake((CGRectGetMaxX(lbSSID.frame) + UIWIDTH(39)) + (CGRectGetWidth(tfSSID.frame)) / 2, lbSSIDCenter.y);
     tfSSID.enabled = NO;
     tfSSID.text = [GPUtil SSID];
     [self.view addSubview:tfSSID];
 
     // SSID密码输入框
     tfPassword = [GPUtil createTextField];
-    tfPassword.frame = CGRectMake(0, 0, KSCREEN_WIDTH - GPWIDTH(120) - CGRectGetMaxX(lbTemp.frame), GPHEIGHT(150));
-    tfPassword.center = CGPointMake((CGRectGetMaxX(lbPassword.frame) + GPWIDTH(39)) + (CGRectGetWidth(tfPassword.frame)) / 2, lbPasswordCenter.y);
-    tfPassword.placeholder = [ChangeLanguage getContentWithKey:@"search1"];
+    tfPassword.frame = CGRectMake(0, 0, KSCREEN_WIDTH - UIWIDTH(120) - CGRectGetMaxX(lbTemp.frame), UIHEIGHT(150));
+    tfPassword.center = CGPointMake((CGRectGetMaxX(lbPassword.frame) + UIWIDTH(39)) + (CGRectGetWidth(tfPassword.frame)) / 2, lbPasswordCenter.y);
+    tfPassword.placeholder = CURRENT_LANGUAGE(@"路由器Wi-Fi密码");
     tfPassword.keyboardType = UIKeyboardTypeASCIICapable;
     tfPassword.secureTextEntry = YES;
     [self.view addSubview:tfPassword];
@@ -216,10 +216,10 @@ typedef NS_ENUM(NSInteger, btnHintView) {
     // 添加按钮
     btnSearch = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.view addSubview:btnSearch];
-    btnSearch.frame = CGRectMake((KSCREEN_WIDTH - GPHEIGHT(432)) / 2, POINT_Y(1030) + 64, GPHEIGHT(432), GPHEIGHT(432));
-    btnSearch.layer.cornerRadius = GPHEIGHT(216);
+    btnSearch.frame = CGRectMake((KSCREEN_WIDTH - UIHEIGHT(432)) / 2, POINT_Y(1030) + 64, UIHEIGHT(432), UIHEIGHT(432));
+    btnSearch.layer.cornerRadius = UIHEIGHT(216);
     btnSearch.layer.masksToBounds = YES;
-    [btnSearch setTitle:[ChangeLanguage getContentWithKey:@"search3"] forState:UIControlStateNormal];
+    [btnSearch setTitle:CURRENT_LANGUAGE(@"开始搜索") forState:UIControlStateNormal];
     btnSearch.titleLabel.font = [UIFont systemFontOfSize:20];
     btnSearch.backgroundColor = THEME_COLOR;
     [btnSearch addTarget:self action:@selector(btnSearchClicked:) forControlEvents:UIControlEventTouchUpInside];
@@ -238,7 +238,7 @@ typedef NS_ENUM(NSInteger, btnHintView) {
     
     UILabel *lbTitle = [[UILabel alloc] init];
     [opView addSubview:lbTitle];
-    lbTitle.text = [ChangeLanguage getContentWithKey:@"search11"];
+    lbTitle.text = CURRENT_LANGUAGE(@"搜索过程大概需要5秒，取消并重新开始？");
     lbTitle.numberOfLines = 0;
     lbTitle.textAlignment = NSTextAlignmentCenter;
     lbTitle.textColor = [UIColor blackColor];
@@ -254,7 +254,7 @@ typedef NS_ENUM(NSInteger, btnHintView) {
     rowline.backgroundColor = [UIColor grayColor];
     [opView addSubview:rowline];
     
-    NSArray *names = @[[ChangeLanguage getContentWithKey:@"search12"], [ChangeLanguage getContentWithKey:@"search13"]];
+    NSArray *names = @[CURRENT_LANGUAGE(@"等待"), CURRENT_LANGUAGE(@"好的")];
     for (int i=0; i<2; i++) {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         [opView addSubview:button];

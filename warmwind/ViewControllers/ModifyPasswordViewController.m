@@ -24,7 +24,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.title = [ChangeLanguage getContentWithKey:@"search6"];
+    self.title = CURRENT_LANGUAGE(@"修改密码 ");
     
     [self createView];
     
@@ -44,7 +44,7 @@
 
 #pragma mark --------------- UITextFieldDelegate ----------------
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
-    btnModify.frame = CGRectMake((KSCREEN_WIDTH - GPWIDTH(1077)) / 2, CGRectGetMaxY(tfConfirmPassword.frame) + POINT_Y(114), GPWIDTH(1077), GPHEIGHT(165));
+    btnModify.frame = CGRectMake((KSCREEN_WIDTH - UIWIDTH(1077)) / 2, CGRectGetMaxY(tfConfirmPassword.frame) + POINT_Y(114), UIWIDTH(1077), UIHEIGHT(165));
     return YES;
 }
 
@@ -52,7 +52,7 @@
     if ([textField becomeFirstResponder]) {
         [textField resignFirstResponder];
     }
-    btnModify.frame = CGRectMake(0, KSCREEN_HEIGHT - GPHEIGHT(165), KSCREEN_WIDTH, GPHEIGHT(165));
+    btnModify.frame = CGRectMake(0, KSCREEN_HEIGHT - UIHEIGHT(165), KSCREEN_WIDTH, UIHEIGHT(165));
     return YES;
 }
 
@@ -73,36 +73,30 @@
     [tfOriginpassword resignFirstResponder];
     [tfNewPassword resignFirstResponder];
     [tfConfirmPassword resignFirstResponder];
-    btnModify.frame = CGRectMake(0, KSCREEN_HEIGHT - GPHEIGHT(165), KSCREEN_WIDTH, GPHEIGHT(165));
+    btnModify.frame = CGRectMake(0, KSCREEN_HEIGHT - UIHEIGHT(165), KSCREEN_WIDTH, UIHEIGHT(165));
 }
 
 #pragma mark --------------- UIButton点击事件 ----------------
 - (void) btnModifyClicked:(UIButton *) sender{
     if (![tfOriginpassword.text isEqualToString:_model.password]) {
         //原密码输入错误
-        [GPUtil hintView:self.view message:[ChangeLanguage getContentWithKey:@"password4"]];
+        [GPUtil hintView:self.view message:CURRENT_LANGUAGE(@"旧密码错误")];
         return;
     }
     if (![tfNewPassword.text isEqualToString:tfConfirmPassword.text]) {
         // 两次密码输入不一致
-        [GPUtil hintView:self.view message:[ChangeLanguage getContentWithKey:@"password5"]];
+        [GPUtil hintView:self.view message:CURRENT_LANGUAGE(@"密码不一致")];
         return;
     }
-//    if (tfNewPassword.text.length == 0) {
-//        // 密码不能为空
-//        [GPUtil hintView:self.view message:[ChangeLanguage getContentWithKey:@"password6"]];
-//        return;
-//    }
-    //BOOL updateState = [[DataBaseManager sharedManager] updateDevicePasswordWithDeviceId:_model.deviceId password:tfConfirmPassword.text];
     BOOL updateState = [_model modifyPasswordWithPassword:tfConfirmPassword.text];
     if (updateState) {
-        [GPUtil hintView:self.view message:[ChangeLanguage getContentWithKey:@"search15"]];
+        [GPUtil hintView:self.view message:CURRENT_LANGUAGE(@"修改成功")];
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [self.navigationController popToRootViewControllerAnimated:NO];
         });
     }
     else{
-        [GPUtil hintView:self.view message:[ChangeLanguage getContentWithKey:@"search10"]];
+        [GPUtil hintView:self.view message:CURRENT_LANGUAGE(@"修改失败")];
     }
 }
 
@@ -121,7 +115,7 @@
 
 - (void) createView{
     UILabel *lbTemp = nil;
-    NSArray *names = @[[ChangeLanguage getContentWithKey:@"password1"], [ChangeLanguage getContentWithKey:@"password2"], [ChangeLanguage getContentWithKey:@"password3"]];
+    NSArray *names = @[CURRENT_LANGUAGE(@"旧密码"), CURRENT_LANGUAGE(@"新密码"), CURRENT_LANGUAGE(@"确认密码")];
     CGPoint lbOriginCenter = CGPointZero;
     CGPoint lbNewCenter = CGPointZero;
     CGPoint lbConfirmCenter = CGPointZero;
@@ -157,21 +151,21 @@
             label.textAlignment = NSTextAlignmentRight;
         }
     }
-    NSArray *placeholders = @[[ChangeLanguage getContentWithKey:@"password8"], [ChangeLanguage getContentWithKey:@"password9"], [ChangeLanguage getContentWithKey:@"password10"]];
+    NSArray *placeholders = @[CURRENT_LANGUAGE(@"请输入旧密码"), CURRENT_LANGUAGE(@"请输入新密码"), CURRENT_LANGUAGE(@"请再次输入新密码")];
     for (int i=0; i<3; i++) {
         UITextField *tf = [GPUtil createTextField];
-        tf.frame = CGRectMake(0, 0, KSCREEN_WIDTH - CGRectGetMaxX(lbTemp.frame) - GPWIDTH(120), GPHEIGHT(150));
+        tf.frame = CGRectMake(0, 0, KSCREEN_WIDTH - CGRectGetMaxX(lbTemp.frame) - UIWIDTH(120), UIHEIGHT(150));
         if (i == 0) {
-            tf.center = CGPointMake((CGRectGetMaxX(lbTemp.frame)) + GPWIDTH(39) + CGRectGetWidth(tf.frame) / 2, lbOriginCenter.y);
+            tf.center = CGPointMake((CGRectGetMaxX(lbTemp.frame)) + UIWIDTH(39) + CGRectGetWidth(tf.frame) / 2, lbOriginCenter.y);
             tfOriginpassword = tf;
             [tf becomeFirstResponder];
         }
         else if (i == 1) {
-            tf.center = CGPointMake((CGRectGetMaxX(lbTemp.frame)) + GPWIDTH(39) + CGRectGetWidth(tf.frame) / 2, lbNewCenter.y);
+            tf.center = CGPointMake((CGRectGetMaxX(lbTemp.frame)) + UIWIDTH(39) + CGRectGetWidth(tf.frame) / 2, lbNewCenter.y);
             tfNewPassword = tf;
         }
         else{
-            tf.center = CGPointMake((CGRectGetMaxX(lbTemp.frame)) + GPWIDTH(39) + CGRectGetWidth(tf.frame) / 2, lbConfirmCenter.y);
+            tf.center = CGPointMake((CGRectGetMaxX(lbTemp.frame)) + UIWIDTH(39) + CGRectGetWidth(tf.frame) / 2, lbConfirmCenter.y);
             tfConfirmPassword = tf;
         }
         tf.delegate = self;
@@ -184,8 +178,8 @@
     // 创建添加按钮
     btnModify = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.view addSubview:btnModify];
-    btnModify.frame = CGRectMake((KSCREEN_WIDTH - GPWIDTH(1077)) / 2, CGRectGetMaxY(tfConfirmPassword.frame) + POINT_Y(114), GPWIDTH(1077), GPHEIGHT(165));
-    [btnModify setTitle:[ChangeLanguage getContentWithKey:@"search16"] forState:UIControlStateNormal];
+    btnModify.frame = CGRectMake((KSCREEN_WIDTH - UIWIDTH(1077)) / 2, CGRectGetMaxY(tfConfirmPassword.frame) + POINT_Y(114), UIWIDTH(1077), UIHEIGHT(165));
+    [btnModify setTitle:CURRENT_LANGUAGE(@"修改") forState:UIControlStateNormal];
     btnModify.titleLabel.font = [UIFont systemFontOfSize:20];
     btnModify.backgroundColor = BTN_ENABLED_BGCOLOR;
     btnModify.enabled = NO;

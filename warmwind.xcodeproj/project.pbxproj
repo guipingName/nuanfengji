@@ -14,7 +14,6 @@
 		38DA5B7E1E70EEA800028B75 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 38DA5B7D1E70EEA800028B75 /* main.m */; };
 		38DA5B811E70EEA800028B75 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 38DA5B801E70EEA800028B75 /* AppDelegate.m */; };
 		38DA5B841E70EEA800028B75 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38DA5B831E70EEA800028B75 /* ViewController.m */; };
-		38DA5B871E70EEA800028B75 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 38DA5B851E70EEA800028B75 /* Main.storyboard */; };
 		38DA5B891E70EEA800028B75 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 38DA5B881E70EEA800028B75 /* Assets.xcassets */; };
 		38DA5B8C1E70EEA800028B75 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 38DA5B8A1E70EEA800028B75 /* LaunchScreen.storyboard */; };
 		38DA5B971E70EEA800028B75 /* warmwindTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 38DA5B961E70EEA800028B75 /* warmwindTests.m */; };
@@ -137,7 +136,6 @@
 		38DA5B801E70EEA800028B75 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = ../AppDelegate.m; sourceTree = "<group>"; };
 		38DA5B821E70EEA800028B75 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ViewController.h; path = ../ViewController.h; sourceTree = "<group>"; };
 		38DA5B831E70EEA800028B75 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ViewController.m; path = ../ViewController.m; sourceTree = "<group>"; };
-		38DA5B861E70EEA800028B75 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		38DA5B881E70EEA800028B75 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		38DA5B8B1E70EEA800028B75 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		38DA5B8D1E70EEA800028B75 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -265,7 +263,6 @@
 		38DA5C7B1E70EF9A00028B75 /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
 		38DA5C841E70EFEA00028B75 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		38DA5C861E70F03200028B75 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
-		38DA5C881E70F05800028B75 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
 		38DA5C891E70F05800028B75 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		38DA5C951E7130B200028B75 /* 关于.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "关于.png"; sourceTree = "<group>"; };
 		38DA5C971E7133FC00028B75 /* ModifyPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModifyPasswordViewController.h; sourceTree = "<group>"; };
@@ -331,7 +328,6 @@
 				38DA5BCB1E70EF7C00028B75 /* CustomView */,
 				38DA5BE21E70EF7C00028B75 /* model */,
 				38DA5BB01E70EECE00028B75 /* ViewControllers */,
-				38DA5B851E70EEA800028B75 /* Main.storyboard */,
 				38DA5B881E70EEA800028B75 /* Assets.xcassets */,
 				38DA5B8A1E70EEA800028B75 /* LaunchScreen.storyboard */,
 				38DA5B8D1E70EEA800028B75 /* Info.plist */,
@@ -766,7 +762,6 @@
 				38DA5B891E70EEA800028B75 /* Assets.xcassets in Resources */,
 				38DA5C5A1E70EF7C00028B75 /* 修改昵称.png in Resources */,
 				38DA5C8C1E70F07100028B75 /* Language.strings in Resources */,
-				38DA5B871E70EEA800028B75 /* Main.storyboard in Resources */,
 				38DA5C3E1E70EF7C00028B75 /* bimarBtn模式_gray@3x.png in Resources */,
 				38DA5C961E7130B200028B75 /* 关于.png in Resources */,
 				38DA5C601E70EF7C00028B75 /* 搜索设备.png in Resources */,
@@ -873,15 +868,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		38DA5B851E70EEA800028B75 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				38DA5B861E70EEA800028B75 /* Base */,
-				38DA5C881E70F05800028B75 /* zh-Hans */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		38DA5B8A1E70EEA800028B75 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (

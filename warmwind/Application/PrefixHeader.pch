@@ -37,7 +37,6 @@
 #define BTN_ENABLED_BGCOLOR                UICOLOR_RGBA(130, 131, 130, 1.0);
 
 #define CURRENT_LANGUAGE(key) [ChangeLanguage getContentWithKey:key]
-
 #define LABEL_RECT(labelText,limitW,limitH,option,font) [labelText boundingRectWithSize:CGSizeMake(limitW, limitH) options:option attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:font]} context:nil]
 
 #define CURRENTLANGUAGE                     @"currentLanguage"

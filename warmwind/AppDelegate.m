@@ -32,7 +32,7 @@
         [userDef setObject:CHINESE forKey:LANGUAGE];
         [userDef synchronize];
     }
-    
+    NSLog(@"test");
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:[[ViewController alloc] init]];
     LeftViewController *leftVC = [[LeftViewController alloc] init];
     MMDrawerController *drawerController = [[MMDrawerController alloc] initWithCenterViewController:nav leftDrawerViewController:leftVC];

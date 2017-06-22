@@ -11,6 +11,7 @@
 		3805F1951E723C9F0007F598 /* DeviceInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3805F1941E723C9F0007F598 /* DeviceInfoTableViewCell.m */; };
 		3805F1981E7246D90007F598 /* AboutUsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3805F1971E7246D90007F598 /* AboutUsViewController.m */; };
 		3805F19A1E724AAD0007F598 /* 1024.png in Resources */ = {isa = PBXBuildFile; fileRef = 3805F1991E724AAD0007F598 /* 1024.png */; };
+		38355B8C1EFB6A7000208282 /* gping.m in Sources */ = {isa = PBXBuildFile; fileRef = 38355B8B1EFB6A7000208282 /* gping.m */; };
 		38DA5B7E1E70EEA800028B75 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 38DA5B7D1E70EEA800028B75 /* main.m */; };
 		38DA5B811E70EEA800028B75 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 38DA5B801E70EEA800028B75 /* AppDelegate.m */; };
 		38DA5B841E70EEA800028B75 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38DA5B831E70EEA800028B75 /* ViewController.m */; };
@@ -129,6 +130,8 @@
 		3805F1961E7246D90007F598 /* AboutUsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutUsViewController.h; sourceTree = "<group>"; };
 		3805F1971E7246D90007F598 /* AboutUsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutUsViewController.m; sourceTree = "<group>"; };
 		3805F1991E724AAD0007F598 /* 1024.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1024.png; sourceTree = "<group>"; };
+		38355B8A1EFB6A7000208282 /* gping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gping.h; sourceTree = "<group>"; };
+		38355B8B1EFB6A7000208282 /* gping.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = gping.m; sourceTree = "<group>"; };
 		38DA5B791E70EEA800028B75 /* warmwind.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = warmwind.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		38DA5B7D1E70EEA800028B75 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		38DA5B7F1E70EEA800028B75 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ../AppDelegate.h; sourceTree = "<group>"; };
@@ -364,6 +367,8 @@
 			children = (
 				38DA5B7F1E70EEA800028B75 /* AppDelegate.h */,
 				38DA5B801E70EEA800028B75 /* AppDelegate.m */,
+				38355B8A1EFB6A7000208282 /* gping.h */,
+				38355B8B1EFB6A7000208282 /* gping.m */,
 				38DA5C841E70EFEA00028B75 /* PrefixHeader.pch */,
 			);
 			path = Application;
@@ -807,6 +812,7 @@
 				38DA5C6B1E70EF7C00028B75 /* UILabel+GPAligment.m in Sources */,
 				38DA5C271E70EF7C00028B75 /* MBProgressHUD.m in Sources */,
 				38DA5C2E1E70EF7C00028B75 /* GPButton.m in Sources */,
+				38355B8C1EFB6A7000208282 /* gping.m in Sources */,
 				38DA5C691E70EF7C00028B75 /* GPUtil.m in Sources */,
 				3805F1981E7246D90007F598 /* AboutUsViewController.m in Sources */,
 				38DA5C7E1E70EF9A00028B75 /* DeviceOperateViewController.m in Sources */,
